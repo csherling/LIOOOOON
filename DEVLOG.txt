@@ -1,0 +1,14 @@
+2016-01-11
+Chris:
+Established classes of usership tree
+
+Aleks:
+
+2016-01-12
+Chris:
+00:33
+Finished ReadCSV with read method, can read CSV .txt files. Created succesful login system (ToDo: Hash Passwords)
+00:34
+Commited
+
+Aleks:
