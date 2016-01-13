@@ -1,14 +1,25 @@
 2016-01-11
 Chris:
-Established classes of usership tree
+-Established classes of usership tree
 
 Aleks:
 
 2016-01-12
 Chris:
 00:33
-Finished ReadCSV with read method, can read CSV .txt files. Created succesful login system (ToDo: Hash Passwords)
+-Finished ReadCSV with read method, can read CSV .txt files. Created succesful login system (ToDo: Hash Passwords)
 00:34
-Commited
+-Commited
+10:18
+-expanded user class. Added accessors/mutators/logout
+-logout working
+-comments!
+11:03
+-Established Book class
+-Login process started in Book
+11:10
+-Full Login Process works
+11:11
+-Committed
 
 Aleks:
