@@ -42,8 +42,7 @@ public class Book{
 	    }
 	    else{
 		System.out.println("Please re-specify");
-	    }
-	   
+	    }	   
 	}
 
 	while(u.getIsIn() != true){
