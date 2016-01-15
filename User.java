@@ -3,22 +3,10 @@ import java.util.*; //imports List/ArrayList/Scanner
 public class User{
 
     // states whether a user is logged in
-    protected boolean _isLoggedIn;
     protected String _lfname; //last, first name
 
     // Constructor, sets _isLoggedIn to false
     public User(){
-	_isLoggedIn = false;
-    }
-
-    // Accesor for _isLoggedIn;
-    public boolean getIsIn(){
-	return _isLoggedIn;
-    }
-
-    // Mutator for _isLoggedIn;
-    public void setIsIn(boolean newState){
-	_isLoggedIn = newState;
     }
 
     public String getName(){
@@ -35,18 +23,16 @@ public class User{
 	for(int i = 0; i < temp.size(); i++){
 	    if(temp.get(i)[0].equals(name)){
 		if(temp.get(i)[1].equals(password)){
-		    setIsIn(true);
 		    return true;
 		}
 	    }
 	}
-	setIsIn(false);
 	return false;
     }
 
     // logs out, turns _isLoggedIn to false
     public void logout(){
-	setIsIn(false);
+	Book.setLoggedIn(false);
     }
 
     // to work on, check schedule
@@ -54,6 +40,7 @@ public class User{
       public Schedule checkSchedule()
      */
 
+    /*
     public static void main(String[] args){
 	User u = new User();
 	Scanner s = new Scanner(System.in);
@@ -82,5 +69,6 @@ public class User{
 	}
 
     }
+*/
 
 }
