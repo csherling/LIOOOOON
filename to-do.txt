@@ -1,3 +1,50 @@
-Chris:
+TODO:
+    
+    Login code
+    Text file to check new accounts
+    Create Account code
+    Student methods
+            get grades
+            get transcript
+            make course requests
+    Teacher methods
+            set student grades
+            see gradebook
+            See studentInfo
+        
+        
+        
+    AP methods
+        same as teacher
+        process course requests 
+        create ordered list of students requesting a course
+        create sections
+        create courses
+        create student and teacher logins
+        
+    Overlord
+        create Ap logins
+        create departments
+        
+    Gradebook
+        Create an arraylist of students based on contructor, which takes course name and section
+        constructor will get info from each student text file
+        2d arraylist with grades from just that course
+        
+        
+    Course file
+        Each course file will contain students taking that course seperated by section
+        and department + course names
+    StudentInfo file
+        First line will be labels for columns ie: ID, osis, sex, age, etc
+        Second line will contain info seperated by columns
+        Third and all lines after will be labels as follows : Course name, Course Average, Course specifics...
+  
+        
+    More:
+        Individual course files will contain
+            department
+            students enrolled in class
+        Department file contains grade breakdowns
+        
 
-Aleks:
