@@ -30,3 +30,11 @@ Aleks:
 Chris:
 11:08 Established to-do.txt
 Aleks:
+11:10 Wrote to-do.txt
+
+2016-01-15
+Chris:
+11:05-11:35 Created menu in driver that allows for logout/quitting once logged in.
+Aleks:
+11:38-11:$3 Established StudentInfoTest.txt with format
+
