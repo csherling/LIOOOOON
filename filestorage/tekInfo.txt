@@ -1,0 +1,2 @@
+Studentname,studentosis,studentid,studentgradyear
+tek,928256875,8815,2018

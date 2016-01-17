@@ -38,3 +38,12 @@ Chris:
 Aleks:
 11:38-11:$3 Established StudentInfoTest.txt with format
 
+2016-01-15
+Chris:
+21:46-22:00 Established File Making apparatus.
+22:00-22:20 Added method newStudents() to FileMaker.java, accepts arraylists.
+22:00-23:54 Worked on a changeline method. Took a lot of time trying to find a careless error. 
+23:55 Commited
+
+Aleks:
+
