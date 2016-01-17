@@ -38,7 +38,7 @@ Chris:
 Aleks:
 11:38-11:$3 Established StudentInfoTest.txt with format
 
-2016-01-15
+2016-01-16
 Chris:
 21:46-22:00 Established File Making apparatus.
 22:00-22:20 Added method newStudents() to FileMaker.java, accepts arraylists.
@@ -47,3 +47,9 @@ Chris:
 
 Aleks:
 
+2017-01-17
+Chris: 
+00:10-00:15 Fixed File Making apparatus to take first and last names instead of username
+00:16 committed
+
+Aleks:

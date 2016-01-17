@@ -5,14 +5,17 @@ public class FileMaker {
 
     //precond, none
     //postcond, new studentInfo file with basic info
-    public static void newStudent(String username, String osis, String fourdigit, String year){
+    public static void newStudent(String fname, String lname, String osis, String fourdigit, String year){
+
+	String lowf = fname.toLowerCase();
+	String lowl = lname.toLowerCase();
         try{
-            File file = new File(username + "Info.txt");
+            File file = new File(lowl + lowf + "Info.txt");
             file.createNewFile();
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("Studentname,studentosis,studentid,studentgradyear\n");
-            bw.write(username + "," + osis + "," + fourdigit + "," + year);
+            bw.write("Student fname, Student lname studentosis,studentid,studentgradyear\n");
+            bw.write(fname + "," + lname + "," + osis + "," + fourdigit + "," + year);
             bw.write("\n");
             bw.flush();
             bw.close();
@@ -25,16 +28,16 @@ public class FileMaker {
 
     //preconds, all arrays same length.
     //postconds, creates multiple new studentInfo files with basic info
-    public static void newStudents(List<String> username, List<String> osis, List<String> fourdigit, List<String> year){
-	
-	for(int i = 0; i < username.size(); i++){//goes through the ArrayLists
+    public static void newStudents(List<String> fname, List<String> lname, List<String> osis, List<String> fourdigit, List<String> year){
+
+	for(int i = 0; i < fname.size(); i++){//goes through the ArrayLists
 	    try{	
-		File file = new File(username.get(i) + "Info.txt");
+		File file = new File(lname.get(i).toLowerCase() + fname.get(i).toLowerCase() + "Info.txt");
 		file.createNewFile();
 		FileWriter fw = new FileWriter(file);
 		BufferedWriter bw = new BufferedWriter(fw);
-		bw.write("Studentname,studentosis,studentid,studentgradyear\n");
-		bw.write(username.get(i) + "," + osis.get(i) + "," + fourdigit.get(i) + "," + year.get(i));
+		bw.write("Student fname, Student lname studentosis,studentid,studentgradyear\n");
+		bw.write(fname.get(i) + "," + lname.get(i) + "," + osis.get(i) + "," + fourdigit.get(i) + "," + year.get(i));
 		bw.write("\n");
 		bw.flush();
 		bw.close();
@@ -82,25 +85,33 @@ public class FileMaker {
     }
 
     //working tests
-    /*
+
     public static void main(String[] args) {
-		newStudent("sherlingchristopher", "205704083", "3750", "2017");
-	List<String> un = new ArrayList<String>();
+	newStudent("christopher", "sherling", "205704083", "3750", "2017");
+	List<String> fn = new ArrayList<String>();
+	List<String> ln = new ArrayList<String>();
 	List<String> os = new ArrayList<String>();
 	List<String> fd = new ArrayList<String>();
 	List<String> sy = new ArrayList<String>();
-	un.add("lob");
-	un.add("lol");
-	un.add("kek");
-	un.add("tek");
-	un.add("lok");
+	fn.add("lob");
+	fn.add("lol");
+	fn.add("kek");
+	fn.add("tek");
+	fn.add("lok");
+	ln.add("top");
+	ln.add("top");
+	ln.add("top");	
+	ln.add("top");
+	ln.add("top");
+
 	for(int i = 0; i < 5; i++){
 	    os.add(((int)(Math.random() * 900000000) + 100000000) + "");
 	    fd.add(((int)(Math.random() * 9000) + 1000) + "");
 	    sy.add(((int)(Math.random() * 4) + 2016) + "");
 	}
-		newStudents(un, os, fd, sy);
-	changeLine("lobInfo.txt", 0, un);
+	newStudents(fn, ln, os, fd, sy);
+	changeLine("toplobInfo.txt", 0, fn);
     }
+    /*
     */
 }
