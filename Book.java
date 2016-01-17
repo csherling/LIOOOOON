@@ -20,39 +20,81 @@ public class Book{
 	_Using = newUsing;
     }
 
-    public static boolean startLogIn(String s){
-	if(s.equals("student")){
-	    u = new Student();
-	    return true;
-	}
-	else if(s.equals("teacher")){
-	    u = new Teacher();
-	    return true;
-	}
-	else if(s.equals("ap")){
-	    u = new AP();
-	    return true;
-	}
-	else if(s.equals("overlord")){
-	    u = new Overlord();
-	    return true;
-	}
-	else{
-	    return false;
+    public static void startLogIn(){
+	Scanner s = new Scanner(System.in);
+	String x = "";
+	System.out.println("What would you like to log in as? student/teacher/ap?");
+	while(true){
+	    if(s.hasNext()){
+		x = (s.nextLine());
+	    }   
+	    if(x.equals("student")){
+		u = new Student();
+		break;
+	    }
+	    else if(x.equals("teacher")){
+		u = new Teacher();
+		break;
+	    }
+	    else if(x.equals("ap")){
+		u = new AP();
+		break;
+	    }
+	    else if(x.equals("overlord")){
+		u = new Overlord();
+		break;
+	    }
+	    else{
+		System.out.println("Please re-specify");
+	    }
 	}
     }
 
-    public static boolean verifyStudent(String osis, String fdigit){
+    public static boolean verifyStudent(){
 	List<String[]> temp = ReadCSV.read("osis_fdigit.txt");
-	for(int i = 0; i < temp.size(); i++){
-	    if(temp.get(i)[0].equals(osis)){
-		if(temp.get(i)[1].equals(fdigit)){
-		    return true;
+	Scanner s = new Scanner(System.in);
+	String osis = "";
+	String fdigit = "";
+	while(true){
+	    System.out.println("What is your OSIS?");
+	    if(s.hasNext()){
+		osis = (s.nextLine());
+	    }   
+	    System.out.println("What is your four digit ID?");
+	    if(s.hasNext()){
+		fdigit = (s.nextLine());
+	    }   
+	    for(int i = 0; i < temp.size(); i++){
+		if(temp.get(i)[0].equals(osis)){
+		    if(temp.get(i)[1].equals(fdigit)){
+			System.out.println("Verification Success!\n");
+			newStudentAcc(osis, fdigit);
+			return true;
+		    }
 		}
 	    }
+	    System.out.println("verification unsuccesful. Retry");
 	}
-	return false;
+    }
 
+    public static void newStudentAcc(String osis, String fdigit){
+	Scanner s = new Scanner(System.in);
+	String fname = "";
+	String lname = "";
+	String year = "";
+	System.out.println("What is your first Name?");
+	if(s.hasNext()){
+	    fname = (s.nextLine());
+	}   		   
+	System.out.println("What is your last Name?");
+	if(s.hasNext()){
+	    lname = (s.nextLine());
+	}   		   
+	System.out.println("What is your Graduation Year?");
+	if(s.hasNext()){
+	    year = (s.nextLine());
+	}   		   
+	FileMaker.newStudent(fname, lname, osis, fdigit, year);
     }
 
     public static void verify(){
@@ -66,41 +108,15 @@ public class Book{
 	}   
 	while(true){
 	    if(type.equals("student")){
-		System.out.println("What is your OSIS?");
-		if(s.hasNext()){
-		    temp1 = (s.nextLine());
-		}   
-		System.out.println("What is your four digit ID?");
-		if(s.hasNext()){
-		    temp2 = (s.nextLine());
-		}   
-		if(verifyStudent(temp1, temp2)){
-		    String fname = "";
-		    String lname = "";
-		    String year = "";
-		    System.out.println("What is your first Name?");
-		    if(s.hasNext()){
-			fname = (s.nextLine());
-		    }   		   
-    		    System.out.println("What is your last Name?");
-		    if(s.hasNext()){
-			lname = (s.nextLine());
-		    }   		   
-    		    System.out.println("What is your Graduation Year?");
-		    if(s.hasNext()){
-			year = (s.nextLine());
-		    }   		   
-		    FileMaker.newStudent(fname, lname, temp1, temp2, year);
+		if(verifyStudent()){
 		    break;
-		}
-		else{
-		    System.out.println("Verification failed. Retry");
 		}
 	    }
 	}
     }
     
-    public static void menu(Scanner s){
+    public static void menu(){
+	Scanner s = new Scanner(System.in);
 	String temp = "";
 	System.out.println("What would you like to do?");
 	System.out.println("Options: quit/logout");
@@ -119,64 +135,63 @@ public class Book{
     public static void quit(){
 	System.exit(1);
     }
-    
 
-    //public static void login
+    public static void startupMenu(){
+	Scanner s = new Scanner(System.in);
+	System.out.println("Welcome!");
+	System.out.println("What would you like to do? verify/login/quit");
+	while(true){
+	    if(s.hasNext()){
+		String x = s.nextLine();
+		if(x.equals("verify")){
+		    verify();
+		    break;
+		}
+		else if(x.equals("login")){
+		    break;
+		}
+		else if(x.equals("quit")){
+		    quit();
+		}
+		else{
+		    System.out.println("Not a valid option. Please retry");
+		}
+	    }
+	}
+    }
 
-    public static void main(String[] args){
+    public static void doLogin(){
 	Scanner s = new Scanner(System.in);
 	String username = "";
 	String password = "";
+	System.out.println("Username");
+	if(s.hasNext()){
+	    username = s.nextLine();
+	}
+	System.out.println("Password");
+	if(s.hasNext()){
+	    password = s.nextLine();
+	}
+	if(u.login(username, password)){
+	    u.setName(username);
+	    System.out.println("Login Successful!" + "\n");
+	    setLoggedIn(true);
+	}
+	else{
+	    System.out.println("Login failed. Retry." + "\n");
+	}
+    }
 
+    public static void main(String[] args){
 	while(getUsing()){
-	    System.out.println("Welcome!");
-	    System.out.println("What would you like to do? verify/login");
-	    while(true){
-		if(s.hasNext()){
-		    if(s.nextLine().equals("verify")){
-			verify();
-			break;
-		    }
-		    else{
-			break;
-		    }
-		}
-	    }
+	    startupMenu();
 	    
-	    System.out.println("What would you like to log in as? student/teacher/ap?");
-	    while(true){
-		if(startLogIn(s.nextLine())){
-		    System.out.println("Please log in! \n");
-		    break;
-		}
-		else{
-		    System.out.println("Please re-specify");
-		}	   
-	    }
+	    startLogIn();
 
-	    while(getLoggedIn() == false){
-		System.out.println("Username");
-		if(s.hasNext()){
-		    username = s.nextLine();
-		}
-		System.out.println("Password");
-		if(s.hasNext()){
-		    password = s.nextLine();
-		}
-		Boolean gotIn = u.login(username, password);
-		u.setName(username);
-		if(gotIn){
-		    System.out.println("Login Successful!" + "\n");
-		    setLoggedIn(true);
-		}
-		else{
-		    System.out.println("Login failed. Retry." + "\n");
-		}
-
-	    }
+	    doLogin();
 
 	    while(getLoggedIn()){
-		menu(s);
+		menu();
 	    }
 
 	}

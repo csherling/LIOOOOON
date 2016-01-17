@@ -20,7 +20,7 @@ public class User{
     // Returns true if login succesful, false if not
     public boolean login(String name, String password){
 	List<String[]> temp = ReadCSV.read("USERS.txt");
-	for(int i = 0; i < temp.size(); i++){
+	for(int i = 0; i < temp.size(); i++){y
 	    if(temp.get(i)[0].equals(name)){
 		if(temp.get(i)[1].equals(password)){
 		    return true;
