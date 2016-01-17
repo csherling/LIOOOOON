@@ -51,5 +51,7 @@ Aleks:
 Chris: 
 00:10-00:15 Fixed File Making apparatus to take first and last names instead of username
 00:16 committed
+00:20 - 00:59 Added account verification for students
+01:01 committed
 
 Aleks:
