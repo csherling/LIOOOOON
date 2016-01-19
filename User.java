@@ -2,17 +2,19 @@ import java.util.*; //imports List/ArrayList/Scanner
 
 public class User{
 
-    // states whether a user is logged in
+    
     protected String _lfname; //last, first name
 
-    // Constructor, sets _isLoggedIn to false
+    // Constructor
     public User(){
     }
 
+	
     public String getName(){
 	return _lfname;
     }
 
+    //Do we really need this?
     public void setName(String newName){
 	_lfname = newName;
     }
@@ -21,13 +23,27 @@ public class User{
     public boolean login(String name, String password){
 	List<String[]> temp = ReadCSV.read("USERS.txt");
 	for(int i = 0; i < temp.size(); i++){
-	    if(temp.get(i)[0].equals(name)){
-		if(temp.get(i)[1].equals(password)){
+	    if(temp.get(i)[0].equals(name))
+		if(temp.get(i)[1].equals(password))
 		    return true;
-		}
-	    }
 	}
 	return false;
+    }
+    
+    // Changes pass of a user
+    protected void newPass(String name, String newPass){
+    	List<String[]> temp = ReadCSV.read("USERS.txt");
+	for(int i = 0; i < temp.size(); i++)
+	    if (temp.get(i)[0].equals(name)){
+		ArrayList<String> quack = new ArrayList<String>();
+		quack.set(0, temp.get(i)[0]);
+		quack.set(1, newPass);
+		FileMaker.changeLine("USERS.txt", i, quack);
+		System.out.println("Password Successfully Changed");
+		i = temp.size();
+	    }
+			
+    	
     }
 
     // logs out, turns _isLoggedIn to false
@@ -35,40 +51,38 @@ public class User{
 	Book.setLoggedIn(false);
     }
 
-    // to work on, check schedule
-    /*
-      public Schedule checkSchedule()
-     */
-
-    /*
+ 
+    
     public static void main(String[] args){
-	User u = new User();
-	Scanner s = new Scanner(System.in);
-	String username = "";
-	String password = "";
-	Boolean loggedIn = false;
-
-	while(loggedIn != true){
-	    System.out.println("Username");
-	    if(s.hasNext()){
-		username = s.nextLine();
-	    }
-	    System.out.println("Password");
-	    if(s.hasNext()){
-		password = s.nextLine();
-	    }
-	    loggedIn = (u.login(username, password));
-	    System.out.println(loggedIn + "\n");
-	}
-
-	while(u.getIsIn()){
-	    System.out.println("Do you want to log out? y/n");
-	    if(s.nextLine().equals("y")){
-		u.setIsIn(false);
-	    }
-	}
-
     }
-*/
+    /*
+      User u = new User();
+      Scanner s = new Scanner(System.in);
+      String username = "";
+      String password = "";
+      Boolean loggedIn = false;
+
+      while(loggedIn != true){
+      System.out.println("Username");
+      if(s.hasNext()){
+      username = s.nextLine();
+      }
+      System.out.println("Password");
+      if(s.hasNext()){
+      password = s.nextLine();
+      }
+      loggedIn = (u.login(username, password));
+      System.out.println(loggedIn + "\n");
+      }
+
+      while(u.getIsIn()){
+      System.out.println("Do you want to log out? y/n");
+      if(s.nextLine().equals("y")){
+      u.setIsIn(false);
+      }
+      }
+
+      }
+    */
 
 }

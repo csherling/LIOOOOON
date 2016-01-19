@@ -6,23 +6,32 @@ public class Book{
     private static boolean _Using = true;
     private static boolean _loggedIn = false;
 
-
+    //returns the logged in state
     public static boolean getLoggedIn(){
 	return _loggedIn;
     }
+    //changes the logged in state
     public static void setLoggedIn(boolean newLIState){
 	_loggedIn = newLIState;
     }
+    //returns whether you're using the program
     public static boolean getUsing(){
 	return _Using;
     }
+    //changes whether you are using the program
     public static void setUsing(boolean newUsing){
 	_Using = newUsing;
     }
-
+    //clears the terminal screen like the clear command
+    public static void clear(){	
+	System.out.print("\033[H\033[2J");
+	System.out.flush();
+    }
+    //initiates the login process
     public static void startLogIn(){
 	Scanner s = new Scanner(System.in);
 	String x = "";
+	clear();
 	System.out.println("What would you like to log in as? student/teacher/ap?");
 	while(true){
 	    if(s.hasNext()){
@@ -49,7 +58,29 @@ public class Book{
 	    }
 	}
     }
-
+    public static void doLogin(){
+	Scanner s = new Scanner(System.in);
+	String username = "";
+	String password = "";
+	System.out.println("Username");
+	if(s.hasNext()){
+	    username = s.nextLine();
+	}
+	System.out.println("Password");
+	if(s.hasNext()){
+	    password = s.nextLine();
+	}
+	if(u.login(username, password)){
+	    u.setName(username);
+	    clear();
+	    System.out.println("Login Successful!" + "\n");
+	    setLoggedIn(true);
+	}
+	else{
+	    clear();
+	    System.out.println("Login failed. Retry." + "\n");
+	}
+    }
     public static boolean verifyStudent(){
 	List<String[]> temp = ReadCSV.read("osis_fdigit.txt");
 	Scanner s = new Scanner(System.in);
@@ -67,12 +98,14 @@ public class Book{
 	    for(int i = 0; i < temp.size(); i++){
 		if(temp.get(i)[0].equals(osis)){
 		    if(temp.get(i)[1].equals(fdigit)){
+			clear();
 			System.out.println("Verification Success!\n");
 			newStudentAcc(osis, fdigit);
 			return true;
 		    }
 		}
 	    }
+	    clear();
 	    System.out.println("verification unsuccesful. Retry");
 	}
     }
@@ -102,6 +135,7 @@ public class Book{
 	String type  = "";
 	String temp1 = "";
 	String temp2 = "";
+	clear();
 	System.out.println("What type of user are you? student/teacher/ap");
 	if(s.hasNext()){
 	    type = (s.nextLine());
@@ -133,11 +167,13 @@ public class Book{
     }
 
     public static void quit(){
+	clear();
 	System.exit(1);
     }
 
     public static void startupMenu(){
 	Scanner s = new Scanner(System.in);
+	clear();
 	System.out.println("Welcome!");
 	System.out.println("What would you like to do? verify/login/quit");
 	while(true){
@@ -160,27 +196,7 @@ public class Book{
 	}
     }
 
-    public static void doLogin(){
-	Scanner s = new Scanner(System.in);
-	String username = "";
-	String password = "";
-	System.out.println("Username");
-	if(s.hasNext()){
-	    username = s.nextLine();
-	}
-	System.out.println("Password");
-	if(s.hasNext()){
-	    password = s.nextLine();
-	}
-	if(u.login(username, password)){
-	    u.setName(username);
-	    System.out.println("Login Successful!" + "\n");
-	    setLoggedIn(true);
-	}
-	else{
-	    System.out.println("Login failed. Retry." + "\n");
-	}
-    }
+
 
     public static void main(String[] args){
 	while(getUsing()){
