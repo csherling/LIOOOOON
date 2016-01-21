@@ -31,18 +31,19 @@ public class User{
     }
     
     // Changes pass of a user
-    protected void newPass(String name, String newPass){
+    protected boolean newPass(String newPass){
     	List<String[]> temp = ReadCSV.read("USERS.txt");
-	for(int i = 0; i < temp.size(); i++)
-	    if (temp.get(i)[0].equals(name)){
+	for(int i = 0; i < temp.size(); i++){
+	    if (temp.get(i)[0].equals(_lfname)){
 		ArrayList<String> quack = new ArrayList<String>();
-		quack.set(0, temp.get(i)[0]);
-		quack.set(1, newPass);
+		quack.add(temp.get(i)[0]);
+		quack.add(newPass);
 		FileMaker.changeLine("USERS.txt", i, quack);
 		System.out.println("Password Successfully Changed");
-		i = temp.size();
+		return true;
 	    }
-			
+	}
+	return false;
     	
     }
 

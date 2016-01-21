@@ -48,6 +48,27 @@ public class FileMaker {
 	}
     }
 
+    public static void newTeacher(String fname, String lname, String TID, String fdigit, String subject){
+
+	String lowf = fname.toLowerCase();
+	String lowl = lname.toLowerCase();
+        try{
+            File file = new File(lowl + lowf + "TeacherInfo.txt");
+            file.createNewFile();
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("Teacher fname, Student lname, teacher ID, teacher four digit, subject\n");
+            bw.write(fname + "," + lname + "," + TID + "," + fdigit + "," + subject);
+            bw.write("\n");
+            bw.flush();
+            bw.close();
+
+        }catch(IOException e){
+        e.printStackTrace();
+        }
+    }
+
+
     //preconds, filename is full, including .txt.
     //postconds, file line changed
     public static void changeLine(String fileName, int lineNum, List<String> newLine){
@@ -57,8 +78,6 @@ public class FileMaker {
 	    FileWriter fw = new FileWriter(newF);
 	    BufferedWriter bw = new BufferedWriter(fw);
 	    String[] tempNew = new String[newLine.size()];
-	    System.out.println(fileName);
-	    System.out.println(tempFile);
 	    for(int i = 0; i < newLine.size(); i++){
 		tempNew[i] = newLine.get(i);
 	    }
@@ -84,11 +103,50 @@ public class FileMaker {
 	
     }
 
+    public static void appendLine(String fileName, List<String> newLine){
+        try{
+	    List<String[]> tempFile = ReadCSV.read(fileName);
+	    File newF = new File(fileName);
+	    FileWriter fw = new FileWriter(newF);
+	    BufferedWriter bw = new BufferedWriter(fw);
+	    String tempNew = "";
+	    for(int i = 0; i < newLine.size(); i++){
+		if(i < newLine.size() - 1){
+		    tempNew += newLine.get(i);
+		    tempNew += ",";
+		}
+		else{
+		    tempNew += newLine.get(i);
+		}
+	    }
+	    for(int i = 0; i < tempFile.size(); i++){
+		String tempLine = "";
+		for(int j = 0; j < tempFile.get(i).length; j++){
+		    if(j < tempFile.get(i).length - 1){
+			tempLine += tempFile.get(i)[j] + ",";
+		    }
+		    else{
+			tempLine += tempFile.get(i)[j] + "\n";
+		    }
+		}
+		bw.write(tempLine);
+	    }
+	    bw.write(tempNew);
+	    bw.flush();
+	    bw.close();
+	}
+        catch(IOException e){
+        e.printStackTrace();
+        }
+	
+    }
+
 
 
     //working tests
 
     public static void main(String[] args) {
+	/*
 	newStudent("christopher", "sherling", "205704083", "3750", "2017");
 	List<String> fn = new ArrayList<String>();
 	List<String> ln = new ArrayList<String>();
@@ -113,6 +171,11 @@ public class FileMaker {
 	}
 	newStudents(fn, ln, os, fd, sy);
 	changeLine("toplobInfo.txt", 0, fn);
+	*/
+	List<String> tid = new ArrayList<String>();
+	tid.add("000000");
+	tid.add("0000");
+	appendLine("TID.txt", tid);
     }
     /*
     */

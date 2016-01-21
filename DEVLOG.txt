@@ -56,3 +56,26 @@ Chris:
 17:14-18:12 Broke main method into many smaller methods. Main method now smoother. No method goes greater than 35 lines.
 
 Aleks:
+
+2017-01-18
+Chris:
+
+Aleks:
+Some amount of time idk because gdi aleks: Wrote a newPass() in user to change passwords
+
+
+2017-01-19
+Chris: 
+11:10-11:15 Implemented terminal clear command as a java method
+
+Aleks:
+
+2017
+Chris:
+7:41-8:00 worked on adding change password to menu. Tried fixing changepass in user. Throws outofbounds exception.
+8:00-8:01 Fixed. Set can't be used on an empty arraylist
+11:05-11:31 Created teacher verification. Wrote an appendLine method in FileMaker
+11:31-11:40 Append line now works
+11:40-11:44 Added addTID method to overlord.
+
+Aleks:

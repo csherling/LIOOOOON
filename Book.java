@@ -81,6 +81,7 @@ public class Book{
 	    System.out.println("Login failed. Retry." + "\n");
 	}
     }
+
     public static boolean verifyStudent(){
 	List<String[]> temp = ReadCSV.read("osis_fdigit.txt");
 	Scanner s = new Scanner(System.in);
@@ -110,6 +111,35 @@ public class Book{
 	}
     }
 
+    public static boolean verifyTeacher(){
+	List<String[]> temp = ReadCSV.read("TID.txt");
+	Scanner s = new Scanner(System.in);
+	String tid = "";
+	String fdigit = "";
+	while(true){
+	    System.out.println("What is your TID?");
+	    if(s.hasNext()){
+		tid = (s.nextLine());
+	    }   
+	    System.out.println("What is your four digit ID?");
+	    if(s.hasNext()){
+		fdigit = (s.nextLine());
+	    }   
+	    for(int i = 0; i < temp.size(); i++){
+		if(temp.get(i)[0].equals(tid)){
+		    if(temp.get(i)[1].equals(fdigit)){
+			clear();
+			System.out.println("Verification Success!\n");
+			newTeacherAcc(tid, fdigit);
+			return true;
+		    }
+		}
+	    }
+	    clear();
+	    System.out.println("verification unsuccesful. Retry");
+	}
+    }
+
     public static void newStudentAcc(String osis, String fdigit){
 	Scanner s = new Scanner(System.in);
 	String fname = "";
@@ -130,6 +160,26 @@ public class Book{
 	FileMaker.newStudent(fname, lname, osis, fdigit, year);
     }
 
+    public static void newTeacherAcc(String tid, String fdigit){
+	Scanner s = new Scanner(System.in);
+	String fname = "";
+	String lname = "";
+	String subject = "";
+	System.out.println("What is your first Name?");
+	if(s.hasNext()){
+	    fname = (s.nextLine());
+	}   		   
+	System.out.println("What is your last Name?");
+	if(s.hasNext()){
+	    lname = (s.nextLine());
+	}   		   
+	System.out.println("What is your Subject?");
+	if(s.hasNext()){
+	    subject = (s.nextLine());
+	}   		   
+	FileMaker.newTeacher(fname, lname, tid, fdigit, subject);
+    }
+
     public static void verify(){
 	Scanner s = new Scanner(System.in);
 	String type  = "";
@@ -146,17 +196,29 @@ public class Book{
 		    break;
 		}
 	    }
+	    else if(type.equals("teacher")){
+		if(verifyTeacher()){
+		    break;
+		}
+	    }
+	    else{
+		System.out.println("Please respecify!");
+	    }
 	}
     }
     
     public static void menu(){
 	Scanner s = new Scanner(System.in);
 	String temp = "";
+	clear();
 	System.out.println("What would you like to do?");
-	System.out.println("Options: quit/logout");
+	System.out.println("Options: quit/logout/change pass");
 
 	if(s.hasNext()){
 	    temp = (s.nextLine());
+	}
+	if(temp.equals("change pass")){
+	    changePass();
 	}
 	if(temp.equals("quit")){
 	    quit();
@@ -196,7 +258,29 @@ public class Book{
 	}
     }
 
-
+    public static void changePass(){
+	Scanner s = new Scanner(System.in);
+	clear();
+	System.out.println("You are able to change your password now!");
+	System.out.println("type quit/cancel to exit or cancel respectively");
+	while(true){
+	    if(s.hasNext()){
+		String x = s.nextLine();
+		if(u.newPass(x)){
+		    break;
+		}
+		else if(x.equals("quit")){
+		    quit();
+		}
+		else if(x.equals("cancel")){
+		    break;
+		}
+		else{
+		    System.out.println("Please retry");
+		}
+	    }
+	}
+    }
 
     public static void main(String[] args){
 	while(getUsing()){
@@ -204,7 +288,9 @@ public class Book{
 	    
 	    startLogIn();
 
+	    while(getLoggedIn() == false){
 	    doLogin();
+	    }
 
 	    while(getLoggedIn()){
 		menu();
