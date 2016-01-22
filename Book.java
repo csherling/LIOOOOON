@@ -210,7 +210,6 @@ public class Book{
     public static void studentMenu(){
 	Scanner s = new Scanner(System.in);
 	String temp = "";
-	clear();
 	System.out.println("What would you like to do?");
 	System.out.println("Options: quit/logout/change pass");
 	System.out.println("mkcoursereq/chkcoursereq/chkgrade");
@@ -233,7 +232,6 @@ public class Book{
     public static void teacherMenu(){
 	Scanner s = new Scanner(System.in);
 	String temp = "";
-	clear();
 	System.out.println("What would you like to do?");
 	System.out.println("Options: quit/logout/change pass");
 	System.out.println("mkcoursereq/chkcoursereq/chkgradebook");
@@ -247,24 +245,49 @@ public class Book{
 	}
     }
 
-    public static void overlordMenu(){
+    public static void apMenu(){
 	Scanner s = new Scanner(System.in);
 	String temp = "";
-	clear();
-	System.out.println("What would you like to do?");
-	System.out.println("Options: quit/logout/change pass/addosisfdigit/addtid");
-	System.out.println("mkcoursereq/chkcoursereq/chkgradebook");
 
+	System.out.println("What would you like to do?");
+	System.out.println("Options: quit/logout/change pass/addtid");
+	System.out.println("mkcoursereq/chkcoursereq/chkgradebook/addosisfdigit");
+	
 	if(s.hasNext()){
 	    temp = (s.nextLine());
 	}
 	commonMenu(temp);
 	if(temp.equals("addosisfdigit")){
-	    //	    
+	    FileMaker.addOsisFdigit();
 	}
 	if(temp.equals("addtid")){
 	    FileMaker.addTID();
 	}
+	
+    }
+
+    public static void overlordMenu(){
+	Scanner s = new Scanner(System.in);
+	String temp = "";
+
+	System.out.println("What would you like to do?");
+	System.out.println("Options: quit/logout/change pass/addtid");
+	System.out.println("mkcoursereq/chkcoursereq/chkgradebook/addosisfdigit");
+	
+	if(s.hasNext()){
+	    temp = (s.nextLine());
+	}
+	commonMenu(temp);
+	if(temp.equals("addosisfdigit")){
+	    FileMaker.addOsisFdigit();
+	}
+	if(temp.equals("addtid")){
+	    FileMaker.addTID();
+	}
+	if(temp.equals("addapid")){
+	    FileMaker.addAPID();
+	}
+	
     }
 
     public static void commonMenu(String temp){
@@ -283,20 +306,18 @@ public class Book{
 	Scanner s = new Scanner(System.in);
 	String temp = "";
 	clear();
-	System.out.println("What would you like to do?");
-	System.out.println("Options: quit/logout/change pass");
 
-	if(s.hasNext()){
-	    temp = (s.nextLine());
+	if(u instanceof Student){
+	    studentMenu();
 	}
-	if(temp.equals("change pass")){
-	    changePass();
+	if(u instanceof Teacher){
+	    teacherMenu();
 	}
-	if(temp.equals("quit")){
-	    quit();
+	if(u instanceof AP){
+	    //apMenu();
 	}
-	if(temp.equals("logout")){
-	    setLoggedIn(false);
+	if(u instanceof Overlord){
+	    overlordMenu();
 	}
     }
 

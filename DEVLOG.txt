@@ -85,6 +85,9 @@ Chris:
 11:10-11:30 cleaned code. Started making sepate menus
 11:30-11:45 thought
 16:15-16:27 worked on overlord menu
+23:00-23:37 made correct menu paths. Troubleshot overlord repeatedly clearing terminal screen. now works.
+23:38-23:40 tested overlord menu. addtid works.
+23:41-23:43 added addOsisFdigit() to filemaker.
 
 Aleks:
 

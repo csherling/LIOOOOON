@@ -23,4 +23,14 @@ public class ReadCSV{
 	return info;
     }
 
+    /*
+    public static void main(String[] args){
+	long x = System.currentTimeMillis();
+	List<String[]> s = read("Book.java");
+	System.out.println(s);
+	long y = System.currentTimeMillis();
+	System.out.println(y - x);
+    }
+    */
+
 }
