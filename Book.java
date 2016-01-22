@@ -206,6 +206,78 @@ public class Book{
 	    }
 	}
     }
+
+    public static void studentMenu(){
+	Scanner s = new Scanner(System.in);
+	String temp = "";
+	clear();
+	System.out.println("What would you like to do?");
+	System.out.println("Options: quit/logout/change pass");
+	System.out.println("mkcoursereq/chkcoursereq/chkgrade");
+
+	if(s.hasNext()){
+	    temp = (s.nextLine());
+	}
+	commonMenu(temp);
+	if(temp.equals("mkcoursereq")){
+	    //	    
+	}
+	if(temp.equals("chkcoursereq")){
+	    //	    
+	}
+	if(temp.equals("chkgrade")){
+	    //	    
+	}
+    }
+
+    public static void teacherMenu(){
+	Scanner s = new Scanner(System.in);
+	String temp = "";
+	clear();
+	System.out.println("What would you like to do?");
+	System.out.println("Options: quit/logout/change pass");
+	System.out.println("mkcoursereq/chkcoursereq/chkgradebook");
+
+	if(s.hasNext()){
+	    temp = (s.nextLine());
+	}
+	commonMenu(temp);
+	if(temp.equals("chkgradebook")){
+	    //	    
+	}
+    }
+
+    public static void overlordMenu(){
+	Scanner s = new Scanner(System.in);
+	String temp = "";
+	clear();
+	System.out.println("What would you like to do?");
+	System.out.println("Options: quit/logout/change pass/addosisfdigit/addtid");
+	System.out.println("mkcoursereq/chkcoursereq/chkgradebook");
+
+	if(s.hasNext()){
+	    temp = (s.nextLine());
+	}
+	commonMenu(temp);
+	if(temp.equals("addosisfdigit")){
+	    //	    
+	}
+	if(temp.equals("addtid")){
+	    FileMaker.addTID();
+	}
+    }
+
+    public static void commonMenu(String temp){
+	if(temp.equals("change pass")){
+	    changePass();
+	}
+	if(temp.equals("quit")){
+	    quit();
+	}
+	if(temp.equals("logout")){
+	    setLoggedIn(false);
+	}
+    }
     
     public static void menu(){
 	Scanner s = new Scanner(System.in);

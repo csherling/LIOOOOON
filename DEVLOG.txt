@@ -47,7 +47,7 @@ Chris:
 
 Aleks:
 
-2017-01-17
+2016-01-17
 Chris: 
 00:10-00:15 Fixed File Making apparatus to take first and last names instead of username
 00:16 committed
@@ -57,20 +57,20 @@ Chris:
 
 Aleks:
 
-2017-01-18
+2016-01-18
 Chris:
 
 Aleks:
 Some amount of time idk because gdi aleks: Wrote a newPass() in user to change passwords
 
 
-2017-01-19
+2016-01-19
 Chris: 
 11:10-11:15 Implemented terminal clear command as a java method
 
 Aleks:
 
-2017
+2016-01-20
 Chris:
 7:41-8:00 worked on adding change password to menu. Tried fixing changepass in user. Throws outofbounds exception.
 8:00-8:01 Fixed. Set can't be used on an empty arraylist
@@ -79,3 +79,12 @@ Chris:
 11:40-11:44 Added addTID method to overlord.
 
 Aleks:
+
+2016-01-21
+Chris:
+11:10-11:30 cleaned code. Started making sepate menus
+11:30-11:45 thought
+16:15-16:27 worked on overlord menu
+
+Aleks:
+
