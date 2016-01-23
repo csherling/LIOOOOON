@@ -3,7 +3,7 @@ Chris:
 -Established classes of usership tree
 
 Aleks:
-
+-Established methods to be written for users
 2016-01-12
 Chris:
 00:33
@@ -24,6 +24,13 @@ Chris:
 
 Aleks:
 
+12:34
+-fixed some methods in user
+12:48
+-made skeleton for Student
+1:00
+-sleepy time
+
 2016-01-13
 
 2016-01-14
@@ -36,7 +43,9 @@ Aleks:
 Chris:
 11:05-11:35 Created menu in driver that allows for logout/quitting once logged in.
 Aleks:
-11:38-11:$3 Established StudentInfoTest.txt with format
+22:38
+-Established StudentInfoTest.txt with format
+
 
 2016-01-16
 Chris:
@@ -91,3 +100,8 @@ Chris:
 
 Aleks:
 
+2016-1-23
+
+Chris:
+
+Aleks: 

@@ -9,16 +9,29 @@ public class User{
     public User(){
     }
 
+    public User(String name){
+
+	setName(name);
+    }
+    //============ Get Set Methods ===========//
 	
     public String getName(){
 	return _lfname;
     }
 
-    //Do we really need this?
-    public void setName(String newName){
+     protected void setName(String newName){
 	_lfname = newName;
     }
 
+    protected String getOSIS(){
+	
+
+    }
+
+
+
+
+    
     // Returns true if login succesful, false if not
     public boolean login(String name, String password){
 	List<String[]> temp = ReadCSV.read("USERS.txt");
