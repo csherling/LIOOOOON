@@ -1,4 +1,5 @@
 import java.util.*; //imports Listt/ArrayList/Scanner
+import java.io.File;
 
 public class User{
 
@@ -68,7 +69,7 @@ public class User{
     
     //Gets First and Last names respectively
     
-    protected String[] getflname(){
+    protected String[] getflname(String name){
 	if (!fexist(name))
 	    return null;
 	
@@ -117,8 +118,6 @@ public class User{
     public static void main(String[] args){
     
     
-      User u = new User("aleks");
-    u.getOSIS();
     }
     /*
       Scanner s = new Scanner(System.in);

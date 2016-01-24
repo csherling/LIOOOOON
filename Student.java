@@ -1,3 +1,5 @@
+import java.util.*; //imports Listt/ArrayList/Scanner
+
 public class Student extends User{
 
     protected int _osis;
@@ -63,7 +65,8 @@ public class Student extends User{
 	String[] grades = temp.get(3);
 	String retStr = "Transcript Average: \n";
 	retStr += grades[0];
-	retstr =+ " and your GPA is:\n" + grades[0]/20 +1;
+	double GPA =Double.parseDouble( grades[0]);
+	retStr += " and your GPA is:\n" + GPA/20.0 +1.0;
 	return retStr;
     }
 
@@ -74,8 +77,8 @@ public class Student extends User{
 	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	String[] grades = temp.get(3);
 	for (int i = 0; i<9; i++)
-	    if (className.toLowerCase().equals(DEPARTMENTS[i])){
-		return ("Your "+ DEPARTMENTS(depNum) + " average is:\n" +  grades[depNum+1]);
+	    if (className.toLowerCase().equals(super.DEPARTMENTS[i])){
+		return ("Your "+ super.DEPARTMENTS[i] + " average is:\n" +  grades[i+1]);
 	    }
 	//Checks classes' existence and then returns the grade one line down
 	String[] classes = temp.get(2);
@@ -103,10 +106,10 @@ public class Student extends User{
 	//This part isolates the line in the course file that has that student's grade breakdown
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
-	for (int i = 2; i < temp.size(); i += temp.get(i)[2]+1){	    
+	for (int i = 2; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
 	    if (temp.get(i)[1].equals(sectionNum)){
 		lineNum = i+1;
-		for (int stud = lineNum; stud< lineNum +  temp.get(lineNum)[2]+1; stud++){
+		for (int stud = lineNum; stud< (lineNum + Integer.parseInt( temp.get(lineNum)[2])+1); stud++){
 		    if (temp.get(stud)[0].equals(_lfname)){
 			lineNum = stud;
 			break;
@@ -132,7 +135,7 @@ public class Student extends User{
 	String[] grades = temp1.get(3);
 	String[] classes = temp1.get(2);
 	for(int i = 1; i < classes.length;i++)
-	    if (className.toLowerCase().equals(classes[i]))
+	    if (courseName.toLowerCase().equals(classes[i]))
 	        retStr +=  grades[i] + "|\n";
 	
 	int placeHolder = 1;
@@ -187,14 +190,14 @@ public class Student extends User{
 	    return "No Student Information Availible";
 	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	
-	retStr = "First Name: " + getflname()[0] + "\nLast Name: " + getflname()[1]+ "\n";
+	String retStr = ("First Name: " + getflname()[0] + "\nLast Name: " + getflname()[1]+ "\n");
 	retStr += "OSIS: " + getOSIS() + "\nFour Digit: " + getfourDigit()+ "\nGraduation Year: " + getGrad() + "\n";
 	String[] grades = temp.get(3);
 	retStr += "Average: " + grades[0]+ "\n";
 	String[] classes = temp.get(2);
 	for (int i = 1; i< 9; i++)
-	    retStr += DEPARTMENTS[i-1] + " average: " + grades[i+1];
-	
+	    retStr += super.DEPARTMENTS[i-1] + " average: " + grades[i+1];
+	return retStr;
 
 
     }

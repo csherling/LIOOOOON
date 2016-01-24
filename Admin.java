@@ -1,3 +1,6 @@
+import java.util.*; //imports Listt/ArrayList/Scanner
+
+
 public class Admin extends User{
 
     protected int _TID;
@@ -9,8 +12,8 @@ public class Admin extends User{
 	super(name);
 	List<String[]> temp = ReadCSV.read(name + "Teacherinfo.txt");
 	String[] info = temp.get(1);
-	_TID = info[2];
-	_Tfourdigit = info[3];
+	_TID = Integer.parseInt(info[2]);
+	_Tfourdigit =Integer.parseInt( info[3]);
         for (int i = 5; i <  Integer.parseInt(info[4]) ; i++)
 	    _coursesTeaching[i-4] = info[i];
     }
@@ -35,8 +38,8 @@ public class Admin extends User{
 	List<String[]> temp = ReadCSV.read(name + "info.txt");
 	String[] grades = temp.get(3);
 	for (int i = 0; i<9; i++)
-	    if (className.toLowerCase().equals(DEPARTMENTS[i])){
-		return (DEPARTMENTS(depNum) + " average is:\n" +  grades[depNum+1]);
+	    if (className.toLowerCase().equals(super.DEPARTMENTS[i])){
+		return (super.DEPARTMENTS[i] + " average is:\n" +  grades[i+1]);
 	    }
 	//Checks classes' existence and then returns the grade one line down
 	String[] classes = temp.get(2);
@@ -73,7 +76,7 @@ public class Admin extends User{
 	//Isolates where that section begins
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
-	for (int i = 2; i < temp.size(); i += temp.get(i)[2]+1){	    
+	for (int i = 2; i < temp.size(); i += Integer.parseInt( temp.get(i)[2])+1){	    
 	    if (temp.get(i)[1].equals(sectionNum)){
 		lineNum = i;
 		break;
@@ -85,7 +88,7 @@ public class Admin extends User{
 	    System.out.println( error);
 	    return;
 	}
-	int endNum = temp.get(lineNum)[2] + lineNum;//This is the end line of that section and is inclusive
+	int endNum = Integer.parseInt(temp.get(lineNum)[2]) + lineNum;//This is the end line of that section and is inclusive
 
 	//BIGASS loop that goes thru each student
 	for (int i = lineNum+1; i <= endNum ; i+=2 ){
@@ -98,9 +101,9 @@ public class Admin extends User{
 	    List<String[]> temp1 = ReadCSV.read(_lfname + "info.txt");
 	    String[] grades = temp1.get(3);
 	    String[] classes = temp1.get(2);
-	    for(int i = 1; i < classes.length;i++)
-		if (className.toLowerCase().equals(classes[i]))
-		    retStr +=  grades[i] + " | ";
+	    for(int j = 1; i < classes.length;j++)
+		if (courseName.toLowerCase().equals(classes[j]))
+		    retStr +=  grades[j] + " | ";
 
 	    //Gets Each section 
 	    
@@ -141,14 +144,14 @@ public class Admin extends User{
       4: Studentname, actualinfo....
     */
     
-    protected void breakDown(String courseName, string SectionNumber, String whichPart){
-	String retStr = "| StudentName | "+ which Part + " | ";
+    protected void breakDown(String courseName, String sectionNum, String whichPart){
+	String retStr = "| StudentName | "+ whichPart + " | ";
 
 
 	//Isolates where that section begins
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
-	for (int i = 2; i < temp.size(); i += temp.get(i)[2]+1){	    
+	for (int i = 2; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
 	    if (temp.get(i)[1].equals(sectionNum)){
 		lineNum = i;
 		break;
@@ -160,7 +163,7 @@ public class Admin extends User{
 	    System.out.println( error);
 	    return;
 	}
-	int endNum = temp.get(lineNum)[2] + lineNum;//This is the end line of that section and is inclusive
+	int endNum =Integer.parseInt( temp.get(lineNum)[2]) + lineNum;//This is the end line of that section and is inclusive
 
 	// Loop thru that specific section to get the labeling at the top
 	//Does this by finding the start and end column of the requested info
@@ -186,7 +189,7 @@ public class Admin extends User{
 	    
 	//Loop for endCol	
         if (!(sectNum == 1) && !(sectNum == 3))
-	    for(;  !(temp.get(lineNum+1)[endCol].equals(sect[sectNum+1))); endCol ++){
+	    for(;  !(temp.get(lineNum+1)[endCol].equals(sects[sectNum+1])); endCol ++){
 		retStr += temp.get(lineNum+1)[endCol] + " | ";
 	    }
 	retStr += "\n";
@@ -198,11 +201,11 @@ public class Admin extends User{
 	    String[] studentGrade= temp.get(i+1);
 	    retStr += "| " + student[0] + " | ";
 
-	    for
-	 
-
+	    for (int quack = startCol; quack <= endCol; quack++){
+		retStr += student[startCol] + " | ";
+	    }
+	    retStr += "\n";
 	    
-	   
 	}
 	System.out.println( retStr );
 
@@ -235,15 +238,15 @@ public class Admin extends User{
 
     //============================== UPDATE METHODS ** MAJOR KEY ALERT ================================//
 
-    public static void transUpdate();
+    // public static void transUpdate();
 
 
-    public static void courseUpdate();
+    //public static void courseUpdate();
 
 
 
     //IE: TEst score
-    public static void indiScoreUpdate();
+    //   public static void indiScoreUpdate();
 
 	
 
