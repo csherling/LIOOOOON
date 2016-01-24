@@ -1,4 +1,4 @@
-import java.util.*; //imports List/ArrayList/Scanner
+import java.util.*; //imports Listt/ArrayList/Scanner
 
 public class User{
 
