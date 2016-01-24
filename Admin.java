@@ -1,13 +1,18 @@
 public class Admin extends User{
 
+    public String[] coursesTeaching = new String[10];
+    
+    public Admin(){
+	
+    }
 
 
 
 
 
-    public String studentInfo(String lfname){
+    public void studentInfo(String lfname){
 	Student temp = new Student(lfname);
-	return temp.toString();
+	System.out.println( temp.toString());
     }
 	
 	    

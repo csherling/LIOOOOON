@@ -1,2 +1,2 @@
-Teacher fname, Student lname, teacher ID, teacher four digit, subject
+Teacher fname, Student lname, teacher ID, teacher four digit, subject1
 topher,brown-mykolyk,999999,9999,apcs

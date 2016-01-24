@@ -17,7 +17,7 @@ public class User{
     //Does File exist helper method
 
     public boolean fexist(){
-	File use = new File(_lfname+".txt");
+	File use = new File(_lfname+"info.txt");
 	return (use.exists());
     }
     
@@ -45,7 +45,7 @@ public class User{
 	if (!fexist(name))
 	    return 0;
 	
-	List<String[]> temp = ReadCSV.read(name + ".txt");
+	List<String[]> temp = ReadCSV.read(name + "info.txt");
 	return Integer.parseInt( temp.get(1)[2]);
 
     }
@@ -54,7 +54,7 @@ public class User{
 	if (!fexist(name))
 	    return 0;
 	
-	List<String[]> temp = ReadCSV.read(name + ".txt");
+	List<String[]> temp = ReadCSV.read(name + "info.txt");
 	return Integer.parseInt( temp.get(1)[3]);
     }
 
@@ -62,7 +62,7 @@ public class User{
 	if (!fexist(name))
 	    return 0;
 	
-	List<String[]> temp = ReadCSV.read(name + ".txt");
+	List<String[]> temp = ReadCSV.read(name + "info.txt");
 	return Integer.parseInt( temp.get(1)[4]);
     }
     
@@ -72,8 +72,8 @@ public class User{
 	if (!fexist(name))
 	    return null;
 	
-	List<String[]> temp = ReadCSV.read(name + ".txt");
-	String[] retArr = {temp.get(1)[0], temp.get(1)[1]}
+	List<String[]> temp = ReadCSV.read(name + "info.txt");
+	String[] retArr = {temp.get(1)[0], temp.get(1)[1]};
 	return retArr;
     }
     //==================================== END GET SET ==========================================//

@@ -2,7 +2,7 @@ public class Student extends User{
 
     protected int _osis;
     protected int _fourdigit;
-    public String[] DEPARTMENTS = {"math", "biology", "english","history","special", "physics", "chemistry", "compSci"};
+    public final String[] DEPARTMENTS = {"math", "biology", "english","history","special", "physics", "chemistry", "compSci"};
     
 
     //********Constructor***********//
@@ -19,7 +19,7 @@ public class Student extends User{
     protected int getOSIS(){
 	if (!super.fexist())
 	    return 0;
-	List<String[]> temp = ReadCSV.read(_lfname + ".txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	return Integer.parseInt( temp.get(1)[2]);
 
     }
@@ -27,7 +27,7 @@ public class Student extends User{
     protected int getfourDigit(){
 	if (!super.fexist())
 	    return 0;
-	List<String[]> temp = ReadCSV.read(_lfname + ".txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	return Integer.parseInt( temp.get(1)[3]);
     }
 
@@ -35,7 +35,7 @@ public class Student extends User{
     protected int getGrad(){
 	if (!super.fexist())
 	    return 0;
-	List<String[]> temp = ReadCSV.read(_lfname + ".txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	return Integer.parseInt( temp.get(1)[4]);
     }
 
@@ -45,8 +45,8 @@ public class Student extends User{
 	if (!fexist())
 	    return null;
 	
-	List<String[]> temp = ReadCSV.read(_lfname + ".txt");
-	String[] retArr = {temp.get(1)[0], temp.get(1)[1]}
+	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
+	String[] retArr = {temp.get(1)[0], temp.get(1)[1]};
 	return retArr;
     }
     //============ End GET SET ==================//
@@ -59,7 +59,7 @@ public class Student extends User{
     public String checkGrades(){
 	if (!super.fexist())
 	    return "Student name invalid. Log out and try again."; 
-	List<String[]> temp = ReadCSV.read(_lfname + ".txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	String[] grades = temp.get(3);
 	String retStr = "Transcript Average: \n";
 	retStr += grades[0];
@@ -71,7 +71,7 @@ public class Student extends User{
     //Takes a class' name as an input, returns average for that class and grade breakdowns
     public String checkGrades(String className){
 	//This is to check if the String is actually a department, in which case the student's average for that department will be returned.
-	List<String[]> temp = ReadCSV.read(_lfname + ".txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	String[] grades = temp.get(3);
 	for (int i = 0; i<9; i++)
 	    if (className.toLowerCase().equals(DEPARTMENTS[i])){
@@ -92,7 +92,7 @@ public class Student extends User{
     public String toString(){
 	if (!fexist())
 	    return "No Student Information Availible";
-	List<String[]> temp = ReadCSV.read(_lfname + ".txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	
 	retStr = "First Name: " + getflname()[0] + "\nLast Name: " + getflname()[1]+ "\n";
 	retStr += "OSIS: " + getOSIS() + "\nFour Digit: " + getfourDigit()+ "\nGraduation Year: " + getGrad() + "\n";
