@@ -40,7 +40,7 @@ public class Admin extends User{
 	    }
 	//Checks classes' existence and then returns the grade one line down
 	String[] classes = temp.get(2);
-	for(int i = 1; i < classes.length();i++)
+	for(int i = 1; i < classes.length;i++)
 	    if (className.toLowerCase().equals(classes[i]))
 		return className + " average is:\n" + grades[i];
 	return "Invalid class name/ Class does not exist";
