@@ -1,6 +1,6 @@
 import java.util.*; //List, ArrayList
 
-public class AP extends Admin{
+public class AP extends Teacher{
 
     public void addOFD(String osis, String fdigit){
 	List<String> temp = new ArrayList<String>();

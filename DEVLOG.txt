@@ -119,5 +119,16 @@ Aleks:
 -toString for student
 15:03
 -studentInfo for Admins
+16:07
+-robustified code
+18:41
+- made outline for more code in Student and Admin
 
 
+
+2016-01-24:
+
+Aleks:
+
+
+Chris:

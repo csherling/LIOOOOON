@@ -4,7 +4,7 @@ public class User{
 
     
     protected String _lfname; //last, first name
-
+    public final String[] DEPARTMENTS = {"math", "biology", "english","history","special", "physics", "chemistry", "compSci"};
     // Constructor
     public User(){
     }

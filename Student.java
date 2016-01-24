@@ -2,7 +2,7 @@ public class Student extends User{
 
     protected int _osis;
     protected int _fourdigit;
-    public final String[] DEPARTMENTS = {"math", "biology", "english","history","special", "physics", "chemistry", "compSci"};
+
     
 
     //********Constructor***********//
@@ -56,7 +56,7 @@ public class Student extends User{
     //Checks grades w/ no input-
     //returns average in normal and gpa form
 
-    public String checkGrades(){
+    private String checkGrades(){
 	if (!super.fexist())
 	    return "Student name invalid. Log out and try again."; 
 	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
@@ -69,7 +69,7 @@ public class Student extends User{
 
 
     //Takes a class' name as an input, returns average for that class and grade breakdowns
-    public String checkGrades(String className){
+    private String checkGrades(String className){
 	//This is to check if the String is actually a department, in which case the student's average for that department will be returned.
 	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	String[] grades = temp.get(3);
@@ -85,7 +85,18 @@ public class Student extends User{
 	return "Invalid class name/ Class does not exist";
     }
 	    
+    // Specific Check Grades Section //
 
+    //Checks the breakdown in the following format:
+    // |Class Name | Class Average |
+    // |Test Average | Test 1| Test 2|
+    // |Particiption |
+    // |Projects | Project 1 | Project 2|
+    private String[] checkBreakDown()
+
+
+
+    
 
     //Overwritten TOSTRING
 
