@@ -117,21 +117,94 @@ public class Admin extends User{
 		}
 	    }
 	}
-	
-
-	
-	
+	System.out.println( retStr );
 
     }
 
+
+    // Break for insiration
+    //ROAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR
+    //WHAT TEAM
+    //WILDCATS
+    //WHAT TEAM
+    //WILDCATS
 
     //returns Gradebook but with specific assignments ie:
     //|Student Name | Test Average | Test 1 | Test 2|
     //Which part can either be - Test , Participation, Homework,  Project
     //EACH STUDENT MUST HAVE SAME TESTS AND PROJECTS
+
+    /*
+      1:depName, Coursename
+      2:Teacher, Section, # of students
+      3: Studentname, TestAv, Test1,Test2, etc.., Participation, ProjectAV, Project 1, project 2 etc
+      4: Studentname, actualinfo....
+    */
     
-    protected String[] breakDown(String courseName, string SectionNumber, String whichPart){
+    protected void breakDown(String courseName, string SectionNumber, String whichPart){
+	String retStr = "| StudentName | "+ which Part + " | ";
+
+
+	//Isolates where that section begins
+	List<String[]> temp = ReadCSV.read(courseName + ".txt");
+	int lineNum = 2;
+	for (int i = 2; i < temp.size(); i += temp.get(i)[2]+1){	    
+	    if (temp.get(i)[1].equals(sectionNum)){
+		lineNum = i;
+		break;
+	    }	    
+	}
+
+	String error ="Section Number Invalid";
+	if (!(temp.get(lineNum)[1].equals(sectionNum))){
+	    System.out.println( error);
+	    return;
+	}
+	int endNum = temp.get(lineNum)[2] + lineNum;//This is the end line of that section and is inclusive
+
+	// Loop thru that specific section to get the labeling at the top
+	//Does this by finding the start and end column of the requested info
+	int startCol = 1;
+	for(; !(temp.get(lineNum+1)[startCol].equals(whichPart)); startCol++){
+	}
+	int endCol = startCol + 1; // END COL IS INCLUSIVE
+	int sectNum = 0;
+	String[] sects = {"testav","participation","projectav","homework"};
+	if (whichPart.toLowerCase().equals("participation")){
+	    endCol = startCol;
+	    sectNum = 1;
+	}
+	//Determines which section it is
+	else if (whichPart.toLowerCase().equals("testav"))
+	    sectNum = 0;
+	else if (whichPart.toLowerCase().equals("projectav"))
+	    sectNum = 2;
+	else if (whichPart.toLowerCase().equals("homework")){
+	    sectNum = 3;
+	    endCol = temp.get(lineNum+1).length -1;
+	}
+	    
+	//Loop for endCol	
+        if (!(sectNum == 1) && !(sectNum == 3))
+	    for(;  !(temp.get(lineNum+1)[endCol].equals(sect[sectNum+1))); endCol ++){
+		retStr += temp.get(lineNum+1)[endCol] + " | ";
+	    }
+	retStr += "\n";
 	
+	//BIGASS loop that goes thru each student
+	for (int i = lineNum+1; i <= endNum ; i+=2 ){
+	    //Gets name
+	    String[] student = temp.get(i);
+	    String[] studentGrade= temp.get(i+1);
+	    retStr += "| " + student[0] + " | ";
+
+	    for
+	 
+
+	    
+	   
+	}
+	System.out.println( retStr );
 
 
     }
