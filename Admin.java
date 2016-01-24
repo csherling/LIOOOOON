@@ -63,11 +63,14 @@ public class Admin extends User{
     /*
       1:depName, Coursename
       2:Teacher, Section, # of students
-      3: Studentname, TestAv, Test1,Test2, etc.., Participation, Project, Project 1, project 2 etc
+      3: Studentname, TestAv, Test1,Test2, etc.., Participation, ProjectAV, Project 1, project 2 etc
+      4: Studentname, actualinfo....
     */
     protected void classBook(String courseName, String sectionNum){
-	String retStr = "| StudentName | CourseAverage | Participation | Homework | Tests | Projects | \n";
+	String retStr = "| StudentName | CourseAverage | Tests | Projects | Participation | Homework | \n\n";
 
+
+	//Isolates where that section begins
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
 	for (int i = 2; i < temp.size(); i += temp.get(i)[2]+1){	    
@@ -76,13 +79,47 @@ public class Admin extends User{
 		break;
 	    }	    
 	}
-	    
-	String error ="Error Course Name or Section Number Invalid";
-	if (!(temp.get(lineNum)[0].equals(_lfname))){
-	    
+
+	String error ="Section Number Invalid";
+	if (!(temp.get(lineNum)[1].equals(sectionNum))){
 	    System.out.println( error);
 	    return;
 	}
+	int endNum = temp.get(lineNum)[2] + lineNum;//This is the end line of that section and is inclusive
+
+	//BIGASS loop that goes thru each student
+	for (int i = lineNum+1; i <= endNum ; i+=2 ){
+	    //Gets name
+	    String[] student = temp.get(i);
+	    String[] studentGrade= temp.get(i+1);
+	    retStr += "| " + student[0] + " | ";
+
+	    //Gets Course Average
+	    List<String[]> temp1 = ReadCSV.read(_lfname + "info.txt");
+	    String[] grades = temp1.get(3);
+	    String[] classes = temp1.get(2);
+	    for(int i = 1; i < classes.length;i++)
+		if (className.toLowerCase().equals(classes[i]))
+		    retStr +=  grades[i] + " | ";
+
+	    //Gets Each section 
+	    
+	    for ( int j = 1; j < student.length; j++){
+		if (student[j].toLowerCase().equals("testav"))
+		    retStr+= studentGrade[j] + " | ";
+		else if (student[j].toLowerCase().equals("participation"))
+		    retStr+= studentGrade[j] + " | ";
+		else if (student[j].toLowerCase().equals("homework"))
+		    retStr+= studentGrade[j] + " | ";
+		else if (student[j].toLowerCase().equals("projectav")){
+		    retStr+= studentGrade[j] + " | \n";
+		    break;
+		}
+	    }
+	}
+	
+
+	
 	
 
     }
