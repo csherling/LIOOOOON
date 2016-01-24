@@ -88,7 +88,10 @@ Chris:
 11:40-11:44 Added addTID method to overlord.
 
 Aleks:
-
+00:15
+-made get and set methods for students and users (specifically gradyear osis and 3digit
+01:15
+-more work on student methods
 2016-01-21
 Chris:
 11:10-11:30 cleaned code. Started making sepate menus

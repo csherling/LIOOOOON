@@ -1,0 +1,18 @@
+public class Admin extends User{
+
+
+
+
+
+    //========= Get & Set methods============//
+
+
+    
+    /*
+      public static int checkStudentGrade(String name){
+      }
+      public static Schedule checkSchedule(User name){ // overloaded from user
+      }
+     */
+
+}
