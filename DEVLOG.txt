@@ -108,3 +108,16 @@ Aleks:
 Chris:
 
 Aleks: 
+12:13
+-compiled + fixed code
+13:13
+-added helper functions + deleted stuff from user student
+
+14:32
+-check grade methods for student
+15:02
+-toString for student
+15:03
+-studentInfo for Admins
+
+

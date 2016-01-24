@@ -13,7 +13,22 @@ public class User{
 
 	setName(name);
     }
-    //============ Get Set Methods ===========//
+
+    //Does File exist helper method
+
+    public boolean fexist(){
+	File use = new File(_lfname+".txt");
+	return (use.exists());
+    }
+    
+    public boolean fexist(String fileName){
+	File use = new File(fileName+".txt");
+	return (use.exists());
+    }
+    
+    
+    
+    //==================================== Get Set Methods ===========================================//
 	
     public String getName(){
 	return _lfname;
@@ -25,10 +40,9 @@ public class User{
 
     //Get OSIS & fourdigit &grad year - takes student name as input
     //Overwritten in Student
+    //returns 0 if student info file doesn't exist
     protected int getOSIS(String name){
-
-	File use = new File(name+".txt");
-	if (!use.exists())//checks that the file exists b4 running
+	if (!fexist(name))
 	    return 0;
 	
 	List<String[]> temp = ReadCSV.read(name + ".txt");
@@ -37,8 +51,7 @@ public class User{
     }
 
     protected int getfourDigit(String name){
-		File use = new File(name+".txt");
-	if (!use.exists())//Checks that the file exists b4 running
+	if (!fexist(name))
 	    return 0;
 	
 	List<String[]> temp = ReadCSV.read(name + ".txt");
@@ -46,8 +59,7 @@ public class User{
     }
 
     protected int getGrad(String name){
-		File use = new File(name+".txt");
-	if (!use.exists())//Checks that the file exists b4 running
+	if (!fexist(name))
 	    return 0;
 	
 	List<String[]> temp = ReadCSV.read(name + ".txt");
@@ -56,16 +68,15 @@ public class User{
     
     //Gets First and Last names respectively
     
-    protected String[] flname(){
-	File use = new File(name+".txt");
-	if (!use.exists())//Checks that the file exists b4 running
-	    return 0;
+    protected String[] getflname(){
+	if (!fexist(name))
+	    return null;
 	
 	List<String[]> temp = ReadCSV.read(name + ".txt");
 	String[] retArr = {temp.get(1)[0], temp.get(1)[1]}
 	return retArr;
     }
-
+    //==================================== END GET SET ==========================================//
 
     
     // Returns true if login succesful, false if not
