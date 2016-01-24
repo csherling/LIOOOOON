@@ -77,12 +77,6 @@ public class Admin extends User{
 	    }	    
 	}
 	    
-	String error ="Error Course Name or Section Number Invalid";
-	if (!(temp.get(lineNum)[0].equals(_lfname))){
-	    
-	    System.out.println( error);
-	    return;
-	}
 	
 
     }

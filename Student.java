@@ -89,9 +89,10 @@ public class Student extends User{
 
     //Checks the breakdown in the following format:
     // |Class Name | Class Average |
-    // |Test Average | Test 1| Test 2|
+    // |Test Average |
+    //       |Test 1|
+    //       |Test 2|
     // |Particiption |
-    // |Projects | Project 1 | Project 2|
 
     /*
       1:depName, Coursename
@@ -102,9 +103,10 @@ public class Student extends User{
 	//This part isolates the line in the course file that has that student's grade breakdown
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
-	for (int i = 2; i < temp.size(); i += temp.get(lineNum)[2]+1){	    
-	    if (temp.get(lineNum)[1].equals(sectionNum)){
-		for (int stud = lineNum+1; stud< lineNum +  temp.get(lineNum)[2]+1;stud++){
+	for (int i = 2; i < temp.size(); i += temp.get(i)[2]+1){	    
+	    if (temp.get(i)[1].equals(sectionNum)){
+		lineNum = i+1;
+		for (int stud = lineNum; stud< lineNum +  temp.get(lineNum)[2]+1; stud++){
 		    if (temp.get(stud)[0].equals(_lfname)){
 			lineNum = stud;
 			break;
@@ -114,9 +116,12 @@ public class Student extends User{
 	    }	    
 	}
 
-	String[] error = {"Error", "Course Name or Section Number Invalid"};
-	if (!(temp.get(lineNum)[0].equals(_lfname)))
-	    return error;
+	String error ="Error Course Name or Section Number Invalid";
+	if (!(temp.get(lineNum)[0].equals(_lfname))){
+	    
+	    System.out.println( error);
+	    return;
+	}
 
 	String[] studGradesLabel = temp.get(lineNum);
 	String[] studGrades = temp.get(lineNum+1);
@@ -133,21 +138,37 @@ public class Student extends User{
 	int placeHolder = 1;
 	//For loop for test scores
 	for (; (!studGradesLabel[placeHolder].equals("participation")); placeHolder++){
-	    if (i == 1)
+	    if (placeHolder == 1)
 		retStr += "|Test Average : " + studGrades[1] +"|\n";
 	    else
-		retStr += "\t|" + studGradesLabel[i] + "|" + studGrades[i]+"|\n";
+		retStr += "\t|" + studGradesLabel[placeHolder] + "|" + studGrades[placeHolder]+"|\n";
 	}
 
 	//Adds Participation grade
 
 	retStr += "|Participation| " + studGrades[placeHolder] + " |\n";
+	placeHolder += 1;
+	int projectSpot = placeHolder;
+	//For loop 4 Project Scores
 	
-	//	
-		    
+	for (; (!studGradesLabel[placeHolder].equals("homework")); placeHolder++){
+	    if (placeHolder == projectSpot)
+		retStr += "|Project  Average : " + studGrades[placeHolder] +"|\n";
+	    else
+		retStr += "\t|" + studGradesLabel[placeHolder] + "|" + studGrades[placeHolder]+"|\n";
+	}	    
+
+	//For loop 4 homework Scores
+	int homeworkSpot = placeHolder;
 	
-	
-	
+	for (; placeHolder < studGradesLabel.length; placeHolder++){
+	    if (placeHolder == homeworkSpot)
+		retStr += "|Homework  Average : " + studGrades[placeHolder] +"|\n";
+	    else
+		retStr += "\t|" + studGradesLabel[placeHolder] + "|" + studGrades[placeHolder]+"|\n";
+	}
+
+	System.out.println( retStr);
 	
 	
 		
