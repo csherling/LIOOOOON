@@ -214,12 +214,115 @@ public class Admin extends User{
 
     //CLASS STATS
     // Returns stats for classes - like average median low high
+    // sectName is either testav,participation,projectav,homework, OR specific tests or projects or homeworks
+    //sectName is basically what u are tryna find the average for
+
+    /*
+      1:depName, Coursename
+      2:Teacher, Section, # of students
+      3: Studentname, TestAv, Test1,Test2, etc.., Participation, ProjectAV, Project 1, project 2 etc
+      4: Studentname, actualinfo....
+    */
+    protected void classStats(String courseName, String sectionNum, String sectName){
+	
+
+	
 
 
+	//Isolates where that section begins
+	List<String[]> temp = ReadCSV.read(courseName + ".txt");
+	int lineNum = 2;
+	for (int i = 2; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
+	    if (temp.get(i)[1].equals(sectionNum)){
+		lineNum = i;
+		break;
+	    }	    
+	}
+	
+
+	String error ="Section Number Invalid";
+	if (!(temp.get(lineNum)[1].equals(sectionNum))){
+	    System.out.println( error);
+	    return;
+	}
 
 
-    //Class stats for specific Tests/Projects/Homework
+	// Loop thru that specific section to get the labeling at the top
+	//Does this by finding the start and end column of the requested info
+	int startCol = 1;
+	for(; !(temp.get(lineNum+1)[startCol].equals(sectName)); startCol++){
+	}
 
+	int[] grades = new int[Integer.parseInt(temp.get(lineNum)[2])];
+
+	for (int i = lineNum +2 ; i <( grades.length+lineNum +1) ; i+=2)
+	    grades[i-(lineNum+2)] = Integer.parseInt(temp.get(i)[startCol]);
+	
+	int[] stats = stats(grades);
+	
+	String retStr = "The class average for " + sectName + " is: " + stats[0];
+	retStr += "\nThe median was: " + stats[1];
+	retStr += "\nThe high was " + stats[2] + " and the low was: "+ stats[3];
+	
+	
+    }
+
+
+    //Takes an int[] full of test scores or some type of scores
+    //returns int[] with {average, median, high, low}
+    
+    public int[] stats(int[] grades){
+	int average = 0;
+	for (int i = 0; i < grades.length;i++)
+	    average += grades[i];
+	average /= grades.length;
+
+	int median = 0;
+	ArrayList<Integer> gradez = new ArrayList<Integer>();
+	for (int i = 0 ; i < grades.length; i++)
+	    gradez.add(grades[i]);
+	
+	bubbleSort(gradez);
+	if (gradez.size()%2 == 0)
+	    median = gradez.get(gradez.size());
+	else
+	    median = gradez.get(gradez.size()/2+1);
+	int high = gradez.get(gradez.size()-1);
+	int low = gradez.get(0);
+
+	int[] statistics= {average, median, high, low};
+	return statistics;
+    }
+
+
+    // ===================================HELPER FUNCTIONS================================= //
+    //BULBASAUR, I CHOOSE YOU!
+ 
+
+    public static void swap(ArrayList<Integer> data, int a, int b){
+	Integer temp = data.get(a);
+	data.set(a, data.get(b));
+	data.set(b, temp);
+    }
+    // VOID version of bubbleSort
+    // Rearranges elements of input ArrayList
+    // postcondition: data's elements sorted in ascending order
+    public static void bubbleSortV( ArrayList<Integer> data ) {
+	for(int j = 0; j< data.size() -1; j++)
+	    for(int i = data.size()-1; i>0; i--)
+		if( data.get(i) < (data.get(i-1)))
+		    swap(data, i, i-1);	
+    }//end bubbleSortV -- O(n^5)
+
+
+    // ArrayList-returning bubbleSort
+    // postcondition: order of input ArrayList's elements unchanged
+    //                Returns sorted copy of input ArrayList.
+    public static ArrayList<Integer> bubbleSort( ArrayList<Integer> input ){
+	ArrayList<Integer> temp = input;
+	bubbleSortV(temp);
+	return temp;
+    }//end bubbleSort -- O(?)
     
 
 
