@@ -5,6 +5,7 @@ public class Admin extends User{
 
     protected int _TID;
     protected int _Tfourdigit;
+    public String[] factors = {"testav","participation","projectav","homework"};
     public String[] _coursesTeaching = new String[10];
 
     //============Constructor=============//
@@ -69,7 +70,7 @@ public class Admin extends User{
       3: Studentname, TestAv, Test1,Test2, etc.., Participation, ProjectAV, Project 1, project 2 etc
       4: Studentname, actualinfo....
     */
-    protected void classBook(String courseName, String sectionNum){
+    public void classBook(String courseName, String sectionNum){
 	String retStr = "| StudentName | CourseAverage | Tests | Projects | Participation | Homework | \n\n";
 
 
@@ -144,7 +145,7 @@ public class Admin extends User{
       4: Studentname, actualinfo....
     */
     
-    protected void breakDown(String courseName, String sectionNum, String whichPart){
+    public void breakDown(String courseName, String sectionNum, String whichPart){
 	String retStr = "| StudentName | "+ whichPart + " | ";
 
 
@@ -223,7 +224,7 @@ public class Admin extends User{
       3: Studentname, TestAv, Test1,Test2, etc.., Participation, ProjectAV, Project 1, project 2 etc
       4: Studentname, actualinfo....
     */
-    protected void classStats(String courseName, String sectionNum, String sectName){
+    public void classStats(String courseName, String sectionNum, String sectName){
 	
 
 	
@@ -331,7 +332,96 @@ public class Admin extends User{
 
     // Make new Test/ Project / Particiption / Homework Score section in gradebook
     // Sets all to 0 until you change - will not update transcript until changed from 0
-    
+
+    /*
+      1:depName, Coursename
+      2:Teacher, Section, # of students
+      3: Studentname, TestAv, Test1,Test2, etc.., Participation, ProjectAV, Project 1, project 2 etc
+      4: Studentname, actualinfo....
+    */
+    //    public String[] factors = {"testav","participation","projectav","homework"};
+    public void newAssignment(String courseName, String sectionNum, String assignmentType, String assignmentName){
+	List<String[]> temp = ReadCSV.read(courseName + ".txt");
+	int lineNum = 2;
+	for (int i = 2; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
+	    if (temp.get(i)[1].equals(sectionNum)){
+		lineNum = i;
+		break;
+	    }	    
+	}
+	int endLine = lineNum + Integer.parseInt(temp.get(lineNum)[2]) + 1;
+	String compare = "";
+	int startIndex = 0;
+	if (assignmentType.toLowerCase().equals("testav"))
+	    compare = "participation";
+	else if (assignmentType.toLowerCase().equals("projectAv"))
+	    compare = "homework";
+	else if (assignmentType.toLowerCase().equals("homework"))
+	    startIndex = temp.get(lineNum).length;
+	else if(!assignmentType.toLowerCase().equals("participation")){
+	    System.out.println(" Error: assignment type not valid");
+	    return;
+	}
+
+	if (startIndex == 0)
+	    for ( int i = 1; !(temp.get(lineNum)[i].equals(compare)); i++){
+		startIndex = i;
+	    }
+	startIndex -= 1;
+
+	//Goes thru every line in the damn file and moves everything over one to make space
+
+	//Shortcut if its a hw just add onto the end
+	if (startIndex == temp.get(lineNum).length)
+	    for( int i = lineNum; i <=   Integer.parseInt(temp.get(i)[2]) +1;i++ ){
+		if (i == lineNum){
+		    String[] alpha = new String[temp.get(i).length+1];
+		    for (int j = 0; j < temp.get(i).length; j++)
+			alpha[j] = temp.get(i)[j];
+		    alpha[temp.get(i).length] = assignmentName;
+		    temp.set(i, alpha);
+		    
+		}
+		else {
+		    String[] beta = new String[temp.get(i).length+1];
+		    for (int j = 0; j < temp.get(i).length; j++)
+			beta[j] = beta.get(i)[j];
+		    beta[temp.get(i).length] = "0";
+		    temp.set(i, beta);
+		}
+	    }
+	    
+	else {
+	    for( int i = lineNum; i <=   Integer.parseInt(temp.get(i)[2]) +1;i++ ){
+		if (i == lineNum){
+		    String[] alpha = new String[temp.get(i).length+1];
+		    for (int j = 0; j < temp.get(i).length; j++)
+			alpha[j] = temp.get(i)[j];
+		    alpha[temp.get(i).length] = assignmentName;
+
+		}
+		else {
+		    String[] beta = new String[temp.get(i).length+1];
+		    for (int j = 0; j < temp.get(i).length; j++)
+			alpha[j] = temp.get(i)[j];
+		    beta[temp.get(i).length] = "0";
+		    temp
+		}
+	    }
+		    
+		
+
+	    }
+
+
+	}
+	
+		
+		
+	    
+		
+
+    }
 
 
     // Change individual scores
