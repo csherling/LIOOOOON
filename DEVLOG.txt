@@ -129,6 +129,16 @@ Aleks:
 2016-01-24:
 
 Aleks:
-
+13:21
+-Added code to get gradebook
+14:02
+-Added specific things fxn
+15:23
+-compiled and debugged
+17:56
+-addede stats fxn with bubbleSort
 
 Chris:
+
+atsomepoint
+-made bubbleSort compatible with <Integer>
