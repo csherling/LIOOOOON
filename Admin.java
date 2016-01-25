@@ -340,7 +340,7 @@ public class Admin extends User{
       4: Studentname, actualinfo....
     */
     //    public String[] factors = {"testav","participation","projectav","homework"};
-    public void newAssignment(String courseName, String sectionNum, String assignmentType, String assignmentName){
+    /*  public void newAssignment(String courseName, String sectionNum, String assignmentType, String assignmentName){
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
 	for (int i = 2; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
@@ -394,14 +394,25 @@ public class Admin extends User{
 	else {
 	    for( int i = lineNum; i <=   Integer.parseInt(temp.get(i)[2]) +1;i++ ){
 		if (i == lineNum){
-		    String[] alpha = new String[temp.get(i).length+1];
-		    for (int j = 0; j < temp.get(i).length; j++)
-			alpha[j] = temp.get(i)[j];
-		    alpha[temp.get(i).length] = assignmentName;
+		    String[] theta = new String[temp.get(i).length+1];
+		    //This for loop goes up to insertation
+		    for (int j = 0; j < temp.get(i).length; j++){
+			if (j == startIndex){
+			    theta[j] = assignmentName;
+			    break;
+			}
+			else
+			    theta[j] = temp.get(i)[j];
+		    }
+		    //This goes after insertation
+		    for(int j = startIndex + 1; j < temp.get(i).length; j++)
+			theta[j] = temp.get(i)[j-1];
+		    temp.set(i,theta);
+
 
 		}
 		else {
-		    String[] beta = new String[temp.get(i).length+1];
+		    String[] delta = new String[temp.get(i).length+1];
 		    for (int j = 0; j < temp.get(i).length; j++)
 			alpha[j] = temp.get(i)[j];
 		    beta[temp.get(i).length] = "0";
@@ -423,7 +434,7 @@ public class Admin extends User{
 
     }
 
-
+    */
     // Change individual scores
 
 
