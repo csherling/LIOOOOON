@@ -160,6 +160,35 @@ public class Book{
 	}
     }
 
+    public static boolean verifyAP(){
+	List<String[]> temp = ReadCSV.read("APID.txt");
+	Scanner s = new Scanner(System.in);
+	String apid = "";
+	String fdigit = "";
+	while(true){
+	    System.out.println("What is your APID?");
+	    if(s.hasNext()){
+		apid = (s.nextLine());
+	    }   
+	    System.out.println("What is your four digit ID?");
+	    if(s.hasNext()){
+		fdigit = (s.nextLine());
+	    }   
+	    for(int i = 0; i < temp.size(); i++){
+		if(temp.get(i)[0].equals(apid)){
+		    if(temp.get(i)[1].equals(fdigit)){
+			clear();
+			System.out.println("Verification Success!\n");
+			newTeacherAcc(apid, fdigit);
+			return true;
+		    }
+		}
+	    }
+	    clear();
+	    System.out.println("verification unsuccesful. Retry");
+	}
+    }
+
     public static void newStudentAcc(String osis, String fdigit){
 	Scanner s = new Scanner(System.in);
 	String fname = "";
@@ -200,6 +229,26 @@ public class Book{
 	FileMaker.newTeacher(fname, lname, tid, fdigit, subject);
     }
 
+    public static void newAPAcc(String apid, String fdigit){
+	Scanner s = new Scanner(System.in);
+	String fname = "";
+	String lname = "";
+	String subject = "";
+	System.out.println("What is your first Name?");
+	if(s.hasNext()){
+	    fname = (s.nextLine());
+	}   		   
+	System.out.println("What is your last Name?");
+	if(s.hasNext()){
+	    lname = (s.nextLine());
+	}   		   
+	System.out.println("What is your Subject?");
+	if(s.hasNext()){
+	    subject = (s.nextLine());
+	}   		   
+	FileMaker.newTeacher(fname, lname, apid, fdigit, subject);
+    }
+
     public static void verify(){
 	Scanner s = new Scanner(System.in);
 	String type  = "";
@@ -218,6 +267,11 @@ public class Book{
 	    }
 	    else if(type.equals("teacher")){
 		if(verifyTeacher()){
+		    break;
+		}
+	    }
+	    else if(type.equals("ap")){
+		if(verifyAP()){
 		    break;
 		}
 	    }
