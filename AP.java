@@ -1,19 +1,41 @@
-import java.util.*; //List, ArrayList
+import java.util.*; //List, ArrayList, Scanner
 
 public class AP extends Teacher{
 
-    public void addOFD(String osis, String fdigit){
-	List<String> temp = new ArrayList<String>();
-	temp.add(osis);
-	temp.add(fdigit);
-	FileMaker.appendLine("osis_fdigit.txt",temp);
+    public static void addOFD(){
+	String osis = "";
+	String fdigit = "";
+	Scanner s = new Scanner(System.in);
+	List<String> line = new ArrayList<String>();
+	System.out.println("OSIS");
+	if(s.hasNext()){
+	    osis = (s.nextLine());
+	}
+	System.out.println("4 digit");
+	if(s.hasNext()){
+	    fdigit = (s.nextLine());
+	}
+	line.add(osis);
+	line.add(fdigit);
+	FileMaker.appendLine("osis_fdigit.txt", line);
     }
 
-    public void addTID(String TID, String fdigit){
-	List<String> temp = new ArrayList<String>();
-	temp.add(TID);
-	temp.add(fdigit);
-	FileMaker.appendLine("TID.txt",temp);
+    public static void addTID(){
+	String tid = "";
+	String fdigit = "";
+	Scanner s = new Scanner(System.in);
+	List<String> line = new ArrayList<String>();
+	System.out.println("6 digit TID");
+	if(s.hasNext()){
+	    tid = (s.nextLine());
+	}
+	System.out.println("4 digit");
+	if(s.hasNext()){
+	    fdigit = (s.nextLine());
+	}
+	line.add(tid);
+	line.add(fdigit);
+	FileMaker.appendLine("TID.txt", line);
     }
 
 }

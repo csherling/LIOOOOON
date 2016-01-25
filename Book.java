@@ -258,10 +258,10 @@ public class Book{
 	}
 	commonMenu(temp);
 	if(temp.equals("addosisfdigit")){
-	    FileMaker.addOsisFdigit();
+	    AP.addOFD();
 	}
 	if(temp.equals("addtid")){
-	    FileMaker.addTID();
+	    AP.addTID();
 	}
 	
     }
@@ -279,13 +279,13 @@ public class Book{
 	}
 	commonMenu(temp);
 	if(temp.equals("addosisfdigit")){
-	    FileMaker.addOsisFdigit();
+	    Overlord.addOFD();
 	}
 	if(temp.equals("addtid")){
-	    FileMaker.addTID();
+	    Overlord.addTID();
 	}
 	if(temp.equals("addapid")){
-	    FileMaker.addAPID();
+	    Overlord.addAPID();
 	}
 	
     }
