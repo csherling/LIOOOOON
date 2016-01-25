@@ -9,11 +9,21 @@ $ java Book
 
 It'll give self explanitory prompts.
 
-Currently, there are few accounts made, most or all of which are students
+Currently, there are few accounts made, at least 1 for each level
+Student: student, student
+Teacher: teacher, teacher
+AP: ap, ap
+Overlord: ov, ov
 
-Mostly student aligned procedures currently work.
-Verification currently only works with OSIS 205704083 and 4digit 3750
-current logins are
-UN: sherling 
-PW: christopher
+If you are Mr. Brown, your overlord account username is:
+brown-mykolyktopher
+and you password is:
+tbm
 
+Upon startup, you'll see several options. You can verify (only Students, Teachers and APs)
+You can log in (all users can do so, provided they have an account)
+Once you are logged in, you have a wide array of options.
+
+Overlods can allow Students, Teachers and APs to verify.
+APs can allow Students and Teachers to verify.
+Accounts are created upon verification.

@@ -136,7 +136,7 @@ public class Student extends User{
 	for (int i = 1; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
 	    if (temp.get(i)[1].equals(sectionNum)){
 		lineNum = i+1;
-		for (int stud = lineNum; stud< (lineNum + Integer.parseInt( temp.get(lineNum)[2])+1); stud++){
+		for (int stud = lineNum; stud< (lineNum + Integer.parseInt( temp.get(lineNum)[2])); stud++){
 		    if (temp.get(stud)[0].equals(_lfname)){
 			lineNum = stud;
 			break;
