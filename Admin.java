@@ -82,34 +82,36 @@ public class Admin extends User{
 	//Isolates where that section begins
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
-	for (int i = 2; i < temp.size(); i += Integer.parseInt( temp.get(i)[2])+1){	    
+	for (int i = 1; i < temp.size(); i += Integer.parseInt( temp.get(i)[2])+1){	    // previous error
 	    if (temp.get(i)[1].equals(sectionNum)){
 		lineNum = i;
 		break;
 	    }	    
 	}
-
+/*
 	String error ="Section Number Invalid";
 	if (!(temp.get(lineNum)[1].equals(sectionNum))){
 	    System.out.println( error);
 	    return;
-	}
-	int endNum = Integer.parseInt(temp.get(lineNum)[2]) + lineNum;//This is the end line of that section and is inclusive
+	}*/
+	int endNum = Integer.parseInt(temp.get(lineNum)[2]) + lineNum + 1;//This is the end line of that section and is inclusive
 
 	//BIGASS loop that goes thru each student
-	for (int i = lineNum+1; i <= endNum ; i+=2 ){
+	for (int i = lineNum+1; i < endNum ; i+=2 ){
 	    //Gets name
 	    String[] student = temp.get(i);
+
 	    String[] studentGrade= temp.get(i+1);
-	    retStr += "| " + student[0] + " | ";
+	    retStr += "| " + studentGrade[0] + " | ";
 
 	    //Gets Course Average
-	    List<String[]> temp1 = ReadCSV.read(_lfname + "Info.txt");
+	    List<String[]> temp1 = ReadCSV.read(studentGrade[0] + "Info.txt");
 	    String[] grades = temp1.get(3);
 	    String[] classes = temp1.get(2);
-	    for(int j = 1; i < classes.length;j++)
-		if (courseName.toLowerCase().equals(classes[j]))
-		    retStr +=  grades[j] + " | ";
+
+	    for(int a = 1; a < classes.length;a++)
+		if (courseName.toLowerCase().equals(classes[a]))
+		    retStr +=  grades[a] + " | ";
 
 	    //Gets Each section 
 	    
@@ -118,7 +120,7 @@ public class Admin extends User{
 		    retStr+= studentGrade[j] + " | ";
 		else if (student[j].toLowerCase().equals("participation"))
 		    retStr+= studentGrade[j] + " | ";
-		else if (student[j].toLowerCase().equals("homework"))
+		else if (student[j].toLowerCase().equals("homeworkav"))
 		    retStr+= studentGrade[j] + " | ";
 		else if (student[j].toLowerCase().equals("projectav")){
 		    retStr+= studentGrade[j] + " | \n";
@@ -157,7 +159,8 @@ public class Admin extends User{
 	//Isolates where that section begins
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
-	for (int i = 2; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
+	
+	for (int i = 1; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
 	    if (temp.get(i)[1].equals(sectionNum)){
 		lineNum = i;
 		break;
@@ -174,11 +177,13 @@ public class Admin extends User{
 	// Loop thru that specific section to get the labeling at the top
 	//Does this by finding the start and end column of the requested info
 	int startCol = 1;
-	for(; !(temp.get(lineNum+1)[startCol].equals(whichPart)); startCol++){
+
+	for(; !(temp.get(lineNum+1)[startCol].toLowerCase().equals(whichPart.toLowerCase())) 
+	&& !((temp.get(lineNum+1)[startCol]).toLowerCase().equals(whichPart.toLowerCase()+"av")); startCol++){
 	}
 	int endCol = startCol + 1; // END COL IS INCLUSIVE
 	int sectNum = 0;
-	String[] sects = {"testav","participation","projectav","homework"};
+	String[] sects = {"testav","participation","projectav","homeworkav"};
 	if (whichPart.toLowerCase().equals("participation")){
 	    endCol = startCol;
 	    sectNum = 1;
@@ -186,9 +191,10 @@ public class Admin extends User{
 	//Determines which section it is
 	else if (whichPart.toLowerCase().equals("testav"))
 	    sectNum = 0;
-	else if (whichPart.toLowerCase().equals("projectav"))
+	else if ((whichPart+"av").toLowerCase().equals("projectav"))
 	    sectNum = 2;
-	else if (whichPart.toLowerCase().equals("homework")){
+	else if (whichPart.toLowerCase().equals("homeworkav")
+	|| (whichPart.toLowerCase().equals("homework"))){
 	    sectNum = 3;
 	    endCol = temp.get(lineNum+1).length -1;
 	}
@@ -201,14 +207,15 @@ public class Admin extends User{
 	retStr += "\n";
 	
 	//BIGASS loop that goes thru each student
+	
 	for (int i = lineNum+1; i <= endNum ; i+=2 ){
 	    //Gets name
 	    String[] student = temp.get(i);
 	    String[] studentGrade= temp.get(i+1);
-	    retStr += "| " + student[0] + " | ";
+	    retStr += "| " + studentGrade[0] + " | ";
 
 	    for (int quack = startCol; quack <= endCol; quack++){
-		retStr += student[startCol] + " | ";
+		retStr += studentGrade[quack] + " | ";
 	    }
 	    retStr += "\n";
 	    
@@ -231,14 +238,10 @@ public class Admin extends User{
     */
     public void classStats(String courseName, String sectionNum, String sectName){
 	
-
-	
-
-
 	//Isolates where that section begins
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
-	for (int i = 2; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
+	for (int i = 1; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
 	    if (temp.get(i)[1].equals(sectionNum)){
 		lineNum = i;
 		break;
@@ -258,17 +261,20 @@ public class Admin extends User{
 	int startCol = 1;
 	for(; !(temp.get(lineNum+1)[startCol].equals(sectName)); startCol++){
 	}
+		    	for(int j =0 ; j< temp.get(lineNum+1).length; j++)
+    	System.out.println(temp.get(lineNum+1)[j]);
 
 	int[] grades = new int[Integer.parseInt(temp.get(lineNum)[2])];
 
 	for (int i = lineNum +2 ; i <( grades.length+lineNum +1) ; i+=2)
 	    grades[i-(lineNum+2)] = Integer.parseInt(temp.get(i)[startCol]);
 	
-	int[] stats = stats(grades);
+	int[] statz = stats(grades);
+
 	
-	String retStr = "The class average for " + sectName + " is: " + stats[0];
-	retStr += "\nThe median was: " + stats[1];
-	retStr += "\nThe high was " + stats[2] + " and the low was: "+ stats[3];
+	String retStr = "The class average for " + sectName + " is: " + statz[0];
+	retStr += "\nThe median was: " + statz[1];
+	retStr += "\nThe high was " + statz[2] + " and the low was: "+ statz[3];
 	
 	
     }
@@ -278,6 +284,7 @@ public class Admin extends User{
     //returns int[] with {average, median, high, low}
     
     public int[] stats(int[] grades){
+
 	int average = 0;
 	for (int i = 0; i < grades.length;i++)
 	    average += grades[i];
@@ -292,7 +299,7 @@ public class Admin extends User{
 	if (gradez.size()%2 == 0)
 	    median = gradez.get(gradez.size());
 	else
-	    median = gradez.get(gradez.size()/2+1);
+	    median = gradez.get(gradez.size()/2);
 	int high = gradez.get(gradez.size()-1);
 	int low = gradez.get(0);
 
@@ -348,18 +355,18 @@ public class Admin extends User{
       public void newAssignment(String courseName, String sectionNum, String assignmentType, String assignmentName){
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
-	for (int i = 2; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
+	for (int i = 1; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
 	    if (temp.get(i)[1].equals(sectionNum)){
-		lineNum = i;
+		lineNum = i+1;
 		break;
 	    }	    
 	}
-	int endLine = lineNum + Integer.parseInt(temp.get(lineNum)[2]) + 1;
+	int endLine = lineNum + Integer.parseInt(temp.get(lineNum+1)[2]) + 1;
 	String compare = "";
 	int startIndex = 0;
-	if (assignmentType.toLowerCase().equals("testav"))
+	if (assignmentType.toLowerCase().equals("test"))
 	    compare = "participation";
-	else if (assignmentType.toLowerCase().equals("projectAv"))
+	else if (assignmentType.toLowerCase().equals("project"))
 	    compare = "homework";
 	else if (assignmentType.toLowerCase().equals("homework"))
 	    startIndex = temp.get(lineNum).length;
@@ -398,7 +405,8 @@ public class Admin extends User{
 	//normal way to add in the middle    
 	else {
 	    
-	    for( int i = lineNum; i <=   Integer.parseInt(temp.get(i)[2]) +1;i++ ){
+	    for( int i = lineNum+1; i <   Integer.parseInt(temp.get(i)[2]) +1;i++ ){
+	    	System.out.println(Integer.parseInt(temp.get(i)[2]));
 		if (i%lineNum != 0){
 		    String[] theta = new String[temp.get(i).length+1];
 		    //This for loop goes up to insertation
@@ -457,8 +465,8 @@ public class Admin extends User{
     public void changeScore(String courseName, String lfname, String assignment, String newScore){
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	//just gonna loop thru every damn line until find right name
-	int lineNum = 0;
-	for (int i = 2; i < temp.size(); i++)
+	int lineNum = 2;
+	for (int i = 1; i < temp.size(); i++)
 	    if (temp.get(i)[0].equals(lfname))
 		lineNum = i+1;
 	if (lineNum  == 0){

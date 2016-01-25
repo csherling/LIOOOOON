@@ -385,7 +385,7 @@ public class Book{
 	String temp = "";
 	System.out.println("What would you like to do?");
 	System.out.println("Options: quit/logout/change pass");
-	System.out.println("check student transcript/check student class grade/student info/check gradebook/brokendown gradebook/class stats/new assignment/change score");
+	System.out.println("check student transcript/check student class grade/student info/check gradebook/brokendown gradebook/new assignment/change score");
 
 	if(s.hasNext()){
 	    temp = (s.nextLine());
@@ -423,7 +423,7 @@ public class Book{
 
 	System.out.println("What would you like to do?");
 	System.out.println("Options: quit/logout/change pass/addosisfdigit/addtid/addapid");
-	System.out.println("check student transcript/check student class grade/student info/check gradebook/brokendown gradebook/class stats/new assignment/change score");
+	System.out.println("check student transcript/check student class grade/student info/check gradebook/brokendown gradebook/change score");
 	
 	if(s.hasNext()){
 	    temp = (s.nextLine());
@@ -624,7 +624,7 @@ public class Book{
 	    if(s.hasNext()){
 		assignment = (s.nextLine());
 	    }
-	    System.out.println("Assignment Name?");
+	    System.out.println("Assignment Score?");
 	    if(s.hasNext()){
 		score = (s.nextLine());
 	    }
@@ -650,7 +650,7 @@ public class Book{
 	    teacherMenu();
 	}
 	if(u instanceof AP){
-	    //apMenu();
+	    apMenu();
 	}
 	if(u instanceof Overlord){
 	    overlordMenu();
