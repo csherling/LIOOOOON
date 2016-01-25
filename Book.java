@@ -285,22 +285,39 @@ public class Book{
 	Scanner s = new Scanner(System.in);
 	String temp = "";
 	System.out.println("What would you like to do?");
-	System.out.println("Options: quit/logout/change pass");
-	System.out.println("mkcoursereq/chkcoursereq/chkgrade");
+	System.out.println("Options: quit/logout/change pass/myInfo/check grades/check class grade");
+	System.out.println("course breakdown");
 
 	if(s.hasNext()){
 	    temp = (s.nextLine());
 	}
 	commonMenu(temp);
-	if(temp.equals("mkcoursereq")){
-	    //	    
+	if(temp.equals("myInfo")){
+	    System.out.println((Student)u);
+	    System.out.println("Type anything and press enter to continue");
+	    if(s.hasNext()){
+	    }
 	}
-	if(temp.equals("chkcoursereq")){
-	    //	    
+	if(temp.equals("check grades")){
+	    System.out.println(((Student)u).checkGrades());
+	    System.out.println("Type anything and press enter to continue");
+	    if(s.hasNext()){
+	    }
 	}
-	if(temp.equals("chkgrade")){
-	    //	    
+	if(temp.equals("check class grade")){
+	    clear();
+	    System.out.println("Which class?");
+	    if(s.hasNext()){
+		System.out.println(((Student)u).checkGrades(s.nextLine()));
+	    }
+	    System.out.println("Type anything and press enter to continue");
+	    if(s.hasNext()){
+	    }
 	}
+	if(temp.equals("course breakdown")){
+	    //
+	}
+
     }
 
     public static void teacherMenu(){
