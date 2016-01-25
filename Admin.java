@@ -398,7 +398,7 @@ public class Admin extends User{
 	else {
 	    
 	    for( int i = lineNum; i <=   Integer.parseInt(temp.get(i)[2]) +1;i++ ){
-		if (i == lineNum){
+		if (i%lineNum != 0){
 		    String[] theta = new String[temp.get(i).length+1];
 		    //This for loop goes up to insertation
 		    for (int j = 0; j < temp.get(i).length; j++){
@@ -447,9 +447,42 @@ public class Admin extends User{
 
     
     // Change individual scores
+    /*
+      1:depName, Coursename
+      2:Teacher, Section, # of students
+      3: Studentname, TestAv, Test1,Test2, etc.., Participation, ProjectAV, Project 1, project 2 etc
+      4: Studentname, actualinfo....
+    */
+    public void changeScore(String courseName, String lfname, String assignment, String newScore){
+	List<String[]> temp = ReadCSV.read(courseName + ".txt");
+	//just gonna loop thru every damn line until find right name
+	int lineNum = 0;
+	for (int i = 2; i < temp.size(); i++)
+	    if (temp.get(i)[0].equals(lfname))
+		lineNum = i+1;
+	if (lineNum  == 0){
+	    System.out.println("Name invalid");
+	    return;
+	}
+	int colNum = 0;
+	//Gotta find the right column now
+	for (int i = 1; i < temp.get(lineNum - 1).length; i++)
+	    if (temp.get(lineNum - 1)[i].equals(assignment))
+		colNum = i;
+	
+	if (colNum  == 0){
+	    System.out.println("Name invalid");
+	    return;
+	}	
 
-    public void changeScore(String courseName, String sectionNum, String lfname, String newScore){
-
+	//this part is light
+	//change the actual score
+	String[] line = temp.get(lineNum);
+	line[colNum] = newScore;
+	ArrayList<String> swag = new ArrayList<String>();
+	for (int i = 0; i < line.length; i++)
+	    swag.set(i, line[i]);
+	FileMaker.changeLine(courseName+".txt", lineNum, swag);//changes line in the text file
 	
 
 
