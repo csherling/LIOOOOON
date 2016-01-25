@@ -2,6 +2,10 @@ import java.util.*; //List, ArrayList, Scanner
 
 public class AP extends Teacher{
 
+    public AP(String name){
+	super(name);
+    }
+
     public static void addOFD(){
 	String osis = "";
 	String fdigit = "";

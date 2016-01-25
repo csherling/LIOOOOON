@@ -3,8 +3,10 @@ import java.util.*; //imports List/ArrayList/Scanner
 public class Book{
 
     private static User u;
+    private static String _usertype;
     private static boolean _Using = true;
     private static boolean _loggedIn = false;
+
 
     //returns the logged in state
     public static boolean getLoggedIn(){
@@ -38,19 +40,19 @@ public class Book{
 		x = (s.nextLine());
 	    }   
 	    if(x.equals("student")){
-		u = new Student();
+		_usertype = x;
 		break;
 	    }
 	    else if(x.equals("teacher")){
-		u = new Teacher();
+		_usertype = x;
 		break;
 	    }
 	    else if(x.equals("ap")){
-		u = new AP();
+		_usertype = x;
 		break;
 	    }
 	    else if(x.equals("overlord")){
-		u = new Overlord();
+		_usertype = x;
 		break;
 	    }
 	    else{
@@ -58,6 +60,22 @@ public class Book{
 	    }
 	}
     }
+
+    public static void instantiate(String lfname){
+	if(_usertype.equals("student")){
+	    u = new Student(lfname);
+	}
+	if(_usertype.equals("teacher")){
+	    u = new Teacher(lfname);
+	}
+	if(_usertype.equals("ap")){
+	    u = new AP(lfname);
+	}
+	if(_usertype.equals("overlord")){
+	    u = new Overlord(lfname);
+	}	
+    }
+
     public static void doLogin(){
 	Scanner s = new Scanner(System.in);
 	String username = "";
@@ -70,6 +88,8 @@ public class Book{
 	if(s.hasNext()){
 	    password = s.nextLine();
 	}
+	instantiate(username);
+
 	if(u.login(username, password)){
 	    u.setName(username);
 	    clear();
