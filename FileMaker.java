@@ -21,7 +21,7 @@ public class FileMaker {
             bw.close();
 
         }catch(IOException e){
-        e.printStackTrace();
+	    e.printStackTrace();
         }
     }
 
@@ -64,7 +64,7 @@ public class FileMaker {
             bw.close();
 
         }catch(IOException e){
-        e.printStackTrace();
+	    e.printStackTrace();
         }
     }
 
@@ -84,7 +84,7 @@ public class FileMaker {
             bw.close();
 
         }catch(IOException e){
-        e.printStackTrace();
+	    e.printStackTrace();
         }
     }
 
@@ -118,7 +118,7 @@ public class FileMaker {
 	    bw.close();
 	}
         catch(IOException e){
-        e.printStackTrace();
+	    e.printStackTrace();
         }
 	
     }
@@ -156,9 +156,34 @@ public class FileMaker {
 	    bw.close();
 	}
         catch(IOException e){
-        e.printStackTrace();
+	    e.printStackTrace();
         }
 	
+    }
+
+    public static void writeFile(String fileName, List<String[]> towrite){
+	try{
+	    File newF = new File(fileName);
+	    FileWriter fw = new FileWriter(newF);
+	    BufferedWriter bw = new BufferedWriter(fw);
+	    for(int i = 0; i < towrite.size(); i++){
+		String tempLine = "";
+		for(int j = 0; j < towrite.get(i).length; j++){
+		    if(j < towrite.get(i).length - 1){
+			tempLine += towrite.get(i)[j] + ",";
+		    }
+		    else{
+			tempLine += towrite.get(i)[j] + "\n";
+		    }
+		}
+		bw.write(tempLine);
+	    }
+	    bw.flush();
+	    bw.close();
+	}
+        catch(IOException e){
+	    e.printStackTrace();
+        }
     }
 
     public static void addOsisFdigit(){
@@ -201,30 +226,30 @@ public class FileMaker {
 
     public static void main(String[] args) {
 	/*
-	newStudent("christopher", "sherling", "205704083", "3750", "2017");
-	List<String> fn = new ArrayList<String>();
-	List<String> ln = new ArrayList<String>();
-	List<String> os = new ArrayList<String>();
-	List<String> fd = new ArrayList<String>();
-	List<String> sy = new ArrayList<String>();
-	fn.add("lob");
-	fn.add("lol");
-	fn.add("kek");
-	fn.add("tek");
-	fn.add("lok");
-	ln.add("top");
-	ln.add("top");
-	ln.add("top");	
-	ln.add("top");
-	ln.add("top");
+	  newStudent("christopher", "sherling", "205704083", "3750", "2017");
+	  List<String> fn = new ArrayList<String>();
+	  List<String> ln = new ArrayList<String>();
+	  List<String> os = new ArrayList<String>();
+	  List<String> fd = new ArrayList<String>();
+	  List<String> sy = new ArrayList<String>();
+	  fn.add("lob");
+	  fn.add("lol");
+	  fn.add("kek");
+	  fn.add("tek");
+	  fn.add("lok");
+	  ln.add("top");
+	  ln.add("top");
+	  ln.add("top");	
+	  ln.add("top");
+	  ln.add("top");
 
-	for(int i = 0; i < 5; i++){
-	    os.add(((int)(Math.random() * 900000000) + 100000000) + "");
-	    fd.add(((int)(Math.random() * 9000) + 1000) + "");
-	    sy.add(((int)(Math.random() * 4) + 2016) + "");
-	}
-	newStudents(fn, ln, os, fd, sy);
-	changeLine("toplobInfo.txt", 0, fn);
+	  for(int i = 0; i < 5; i++){
+	  os.add(((int)(Math.random() * 900000000) + 100000000) + "");
+	  fd.add(((int)(Math.random() * 9000) + 1000) + "");
+	  sy.add(((int)(Math.random() * 4) + 2016) + "");
+	  }
+	  newStudents(fn, ln, os, fd, sy);
+	  changeLine("toplobInfo.txt", 0, fn);
 	*/
 	List<String> tid = new ArrayList<String>();
 	tid.add("000000");
@@ -232,5 +257,5 @@ public class FileMaker {
 	appendLine("TID.txt", tid);
     }
     /*
-    */
+     */
 }
