@@ -1,5 +1,6 @@
 import java.io.*; //FileNotFoundException (Exception)
 import java.util.*; //imports Listt/ArrayList/Scanner
+import java.math.BigDecimal;
 
 
 public class Admin extends User{
@@ -12,7 +13,7 @@ public class Admin extends User{
     //============Constructor=============//
     public Admin(String name){
 	super(name);
-	List<String[]> temp = ReadCSV.read(name + "Teacherinfo.txt");
+	List<String[]> temp = ReadCSV.read(name + "TeacherInfo.txt");
 	String[] info = temp.get(1);
 	_TID = Integer.parseInt(info[2]);
 	_Tfourdigit =Integer.parseInt( info[3]);
@@ -25,7 +26,7 @@ public class Admin extends User{
     //Check Transcript average of any student
     public String checkGrades(String name){
 	try{
-	List<String[]> temp = ReadCSV.read(name + "info.txt");
+	List<String[]> temp = ReadCSV.read(name + "Info.txt");
 	String[] grades = temp.get(3);
 	String retStr = "Transcript Average: \n";
 	retStr += grades[0];
@@ -40,7 +41,7 @@ public class Admin extends User{
     //Takes a class' name as an input, returns average for that class and grade breakdowns
     public String checkGrades(String name, String className){
 	//This is to check if the String is actually a department, in which case the student's average for that department will be returned.
-	List<String[]> temp = ReadCSV.read(name + "info.txt");
+	List<String[]> temp = ReadCSV.read(name + "Info.txt");
 	String[] grades = temp.get(3);
 	for (int i = 0; i<9; i++)
 	    if (className.toLowerCase().equals(super.DEPARTMENTS[i])){
@@ -103,7 +104,7 @@ public class Admin extends User{
 	    retStr += "| " + student[0] + " | ";
 
 	    //Gets Course Average
-	    List<String[]> temp1 = ReadCSV.read(_lfname + "info.txt");
+	    List<String[]> temp1 = ReadCSV.read(_lfname + "Info.txt");
 	    String[] grades = temp1.get(3);
 	    String[] classes = temp1.get(2);
 	    for(int j = 1; i < classes.length;j++)
@@ -484,7 +485,7 @@ public class Admin extends User{
 	    swag.set(i, line[i]);
 	FileMaker.changeLine(courseName+".txt", lineNum, swag);//changes line in the text file
 	
-
+	indiScoreUpdate(lfname, courseName);
 
     }
 
@@ -493,27 +494,223 @@ public class Admin extends User{
 
     //============================== UPDATE METHODS ** MAJOR KEY ALERT ================================//
 
-    // public static void transUpdate();
+    public static void transUpdate(String lfname){
+	List<String[]> temp = ReadCSV.read(lfname + "Info.txt");
+	ArrayList<String> temp2 = new ArrayList<String>(); // new arraylist to be coded
 
-
-    //public static void courseUpdate();
-
-
-
-    //IE: TEst score
-    //   public static void indiScoreUpdate();
+	int mathAV = 0;
+	int mathClassNum = 0;
+	int biologyAV = 0;
+	int biologyClassNum = 0;
+	int englishAV = 0;
+	int englishClassNum = 0;
+	int historyAV = 0;
+	int historyClassNum = 0;
+	int specialAV = 0;
+	int specialClassNum = 0;
+	int physicsAV = 0;
+	int physicsClassNum = 0;
+	int chemistryAV = 0;
+	int chemistryClassNum = 0;
+	int compSciAV = 0;
+	int compSciClassNum = 0;
+	    
+	    
 
 	
+	for (int i = 9 ; i < temp.get(2).length ; i++){
+	    List<String[]> temp1 = ReadCSV.read(temp.get(2)[i] + ".txt");
+	    String depName = temp1.get(0)[0];
+	    if (depName.equals("math")){
+		mathAV += Integer.parseInt(temp.get(3)[i]);
+		mathClassNum += 1;
+	    }
+	    else if (depName.equals("biology")){
+	        biologyAV += Integer.parseInt(temp.get(3)[i]);
+		biologyClassNum += 1;
+	    }
+	    else if (depName.equals("english")){
+	        englishAV += Integer.parseInt(temp.get(3)[i]);
+		englishClassNum += 1;
+	    }
+	    else if (depName.equals("history")){
+	        historyAV += Integer.parseInt(temp.get(3)[i]);
+	        historyClassNum += 1;
+	    }
+	    else if (depName.equals("special")){
+	        specialAV += Integer.parseInt(temp.get(3)[i]);
+	        specialClassNum += 1;
+	    }
+	    else if (depName.equals("physics")){
+		physicsAV += Integer.parseInt(temp.get(3)[i]);
+		physicsClassNum += 1;
+	    }
+	    else if (depName.equals("chemistry")){
+	        chemistryAV += Integer.parseInt(temp.get(3)[i]);
+		chemistryClassNum += 1;
+	    }
+	    else if (depName.equals("compsci")){
+	        compSciAV += Integer.parseInt(temp.get(3)[i]);
+	        compSciClassNum += 1;
+	    }
+	    
+	}
+	 mathAV = mathAV / mathClassNum;
 
-    //========= Get & Set methods============//
+	 biologyAV = biologyAV / biologyClassNum;
 
+	 englishAV = englishAV / englishClassNum;
+
+	 historyAV = historyAV / historyClassNum;
+
+	 specialAV = specialAV / specialClassNum;
+
+	 physicsAV = physicsAV /physicsClassNum;
+
+	 chemistryAV = chemistryAV / chemistryClassNum;
+
+	 compSciAV = compSciAV / compSciClassNum;
+
+	 int TranscriptAv = mathAV + biologyAV + englishAV + historyAV + specialAV + physicsAV + chemistryAV + compSciAV;
+	TranscriptAv /= 8;
+
+	temp2.add( "" + TranscriptAv);
+	temp2.add( "" + mathAV);
+	temp2.add( "" + biologyAV);
+	temp2.add( "" + englishAV);
+	temp2.add( "" + historyAV);
+	temp2.add( "" + specialAV);
+	temp2.add( "" + physicsAV);
+	temp2.add( "" + chemistryAV);
+	temp2.add( "" + compSciAV);
+	for (int i = 9 ; i < temp.get(2).length ; i++)
+	    temp2.add( "" + Integer.parseInt(temp.get(3)[i]));
+	FileMaker.changeLine(lfname+"Info.txt", 3, temp2);//changes line in the text file	
+	 
+	
+
+
+
+	
+    }
+	
+
+
+    public static void courseUpdate(String lfname, String courseName){
+	List<String[]> temp = ReadCSV.read(courseName + ".txt");
+	String department = temp.get(0)[0];
+	List<String[]> dep = ReadCSV.read(department + ".txt");
+	//Stores department grading scale
+	String[] scale = dep.get(3);
+	
+	//just gonna loop thru every damn line until find right name
+	int lineNum = 0;
+	for (int i = 2; i < temp.size(); i++)
+	    if (temp.get(i)[0].equals(lfname))
+		lineNum = i+1;
+	if (lineNum  == 0){
+	    System.out.println("Name invalid");
+	    return;
+	}
+	String[] grades = temp.get(lineNum);
+	int testAv = 0;
+	int partAv = 0;
+	int projAv = 0;
+	int hwAv = 0;
+	//Gets averages for that class
+	for (int i =1 ; i < temp.get(lineNum-1).length; i++){
+	    if (temp.get(lineNum-1)[i].equals("testav"))
+		testAv = Integer.parseInt(temp.get(lineNum)[i]);
+	    else if (temp.get(lineNum-1)[i].equals("participation"))
+		partAv = Integer.parseInt(temp.get(lineNum)[i]);
+	    else if (temp.get(lineNum-1)[i].equals("projectav"))
+		projAv = Integer.parseInt(temp.get(lineNum)[i]);
+	    else if (temp.get(lineNum-1)[i].equals("homework")){
+		hwAv = Integer.parseInt(temp.get(lineNum)[i]);
+		break;
+	    }
+	}
+
+	//Calculates class avg using the scale
+	BigDecimal average = new BigDecimal((testAv * (Double.parseDouble(scale[0])/100)) + (partAv * (Double.parseDouble(scale[1])/100)) + (projAv * (Double.parseDouble(scale[2])/100)) + (hwAv * (Double.parseDouble(scale[3])/100)));
+	int av = average.intValue();
+
+	List<String[]> temp1 = ReadCSV.read(lfname + "Info.txt");
+	ArrayList<String> temp2 = new ArrayList<String>();
+	for(int i = 0 ; i < temp1.get(3).length ; i++)
+	    temp2.add( "" + temp1.get(3)[i]);
+	int columnNumber = 0;
+	for(int i = 0; i < temp1.get(2).length; i++)
+	    if ( temp1.get(2)[i].equals(courseName))
+		columnNumber = i;
+	temp2.add(columnNumber,""+ av);
+	FileMaker.changeLine(lfname+"Info.txt", 3, temp2);//changes line in the text file
+	transUpdate(lfname);
+    }
 
     
     /*
-      public static int checkStudentGrade(String name){
-      }
-      public static Schedule checkSchedule(User name){ // overloaded from user
-      }
-     */
+      1:depName, Coursename
+      2:Teacher, Section, # of students
+      3: Studentname, TestAv, Test1,Test2, etc.., Participation, ProjectAV, Project 1, project 2 etc
+      4: Studentname, actualinfo....
+    */
+    //IE: TEst score
+    public static void indiScoreUpdate(String lfname, String className){
+	List<String[]> temp = ReadCSV.read(className + ".txt");
+
+	//just gonna loop thru every damn line until find right name
+	int lineNum = 0;
+	for (int i = 2; i < temp.size(); i++)
+	    if (temp.get(i)[0].equals(lfname))
+		lineNum = i+1;
+	if (lineNum  == 0){
+	    System.out.println("Name invalid");
+	    return;
+	}
+	String[] grades = temp.get(lineNum);
+
+	//average setter for tests
+	int averageCalc = 0;
+	int average = 0;
+	    
+	for(int i = 2; !(temp.get(lineNum-1).equals("participation"));i++){
+	    average += Integer.parseInt( temp.get(lineNum)[i]);
+	    averageCalc += 1;
+	}
+	grades[1] = average / averageCalc + "";
+
+	//average setter for projects
+	averageCalc = 0; average = 0;
+	int colNum = 3;
+	for (; !(temp.get(lineNum-1).equals("projectav"));colNum ++){
+	}
+	colNum += 1;
+	int endCol = colNum;
+	for(int i = colNum; !temp.get(lineNum-1).equals("homework"); i++){
+	    average += Integer.parseInt( temp.get(lineNum)[i]);
+	    averageCalc += 1;
+	    endCol += 1;
+	}
+	endCol += 1;
+	grades[colNum] ="" + ( average/ averageCalc);
+	
+	//average setter for homeworks
+	averageCalc = 0; average = 0;
+	colNum = endCol;
+	for(int i = colNum; i < temp.get(lineNum).length; i++){
+	    average += Integer.parseInt( temp.get(lineNum)[i]);
+	    averageCalc += 1;
+	}
+	grades[endCol] ="" +( average / averageCalc);
+	ArrayList<String> boii = new ArrayList<String>();
+	for (int i = 0; i < grades.length; i++)
+	    boii.set(i, grades[i]);
+	FileMaker.changeLine(className+".txt", lineNum, boii);//changes line in the text file
+
+	
+	courseUpdate(lfname, className);
+    }
+
 
 }
