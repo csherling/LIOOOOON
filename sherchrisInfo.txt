@@ -1,2 +1,5 @@
 Student fname, Student lname studentosis,studentid,studentgradyear
 chris,sher,205704083,3750,2017
+transcriptAV,mathAV,biologyAV,englishAV,historyAV,specialAV,physicsAV,chemistryAV,compSciAV,math
+99,98,97,96,95,94,93,92,91,90
+

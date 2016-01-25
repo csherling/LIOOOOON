@@ -145,14 +145,14 @@ public class Student extends User{
 		break;
 	    }	    
 	}
-
+/*
 	String error ="Error Course Name or Section Number Invalid";
 	if (!(temp.get(lineNum)[0].equals(_lfname))){
 	    
 	    System.out.println( error);
 	    return;
 	}
-
+*/
 	String[] studGradesLabel = temp.get(lineNum);
 	String[] studGrades = temp.get(lineNum+1);
 	String retStr = "\n|"+ courseName+"|";
@@ -181,7 +181,7 @@ public class Student extends User{
 	int projectSpot = placeHolder;
 	//For loop 4 Project Scores
 	
-	for (; (!studGradesLabel[placeHolder].equals("homework")); placeHolder++){
+	for (; (!studGradesLabel[placeHolder].equals("homeworkav")); placeHolder++){
 	    if (placeHolder == projectSpot)
 		retStr += "|Project  Average : " + studGrades[placeHolder] +"|\n";
 	    else

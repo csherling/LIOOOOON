@@ -375,6 +375,7 @@ public class Book{
 	    course.toLowerCase();
 	    section.toLowerCase();
 	    ((Student)u).checkBreakDown(course, section);
+	    stall();
 	}
 
     }
