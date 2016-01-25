@@ -103,6 +103,7 @@ public class Book{
 	    }
 	}
 	if(_usertype.equals("teacher")){
+
 	    if(((Teacher)u).login(username, password)){
 		u.setName(username);
 		clear();
@@ -113,6 +114,7 @@ public class Book{
 		clear();
 		System.out.println("Login failed. Retry." + "\n");
 	    }
+
 	}
 	if(_usertype.equals("ap")){
 	    if(((AP)u).login(username, password)){
@@ -125,8 +127,11 @@ public class Book{
 		clear();
 		System.out.println("Login failed. Retry." + "\n");
 	    }
+
+
 	}
 	if(_usertype.equals("overlord")){
+
 	    if(((Overlord)u).login(username, password)){
 		u.setName(username);
 		clear();
@@ -137,6 +142,7 @@ public class Book{
 		clear();
 		System.out.println("Login failed. Retry." + "\n");
 	    }
+
 	}
     }
 
@@ -245,6 +251,10 @@ public class Book{
 	    year = (s.nextLine());
 	}   		   
 	FileMaker.newStudent(fname, lname, osis, fdigit, year);
+	List<String> tempLine = new ArrayList<String>();
+	tempLine.add(lname + fname);
+	tempLine.add(osis);
+	FileMaker.appendLine("STUDENTUSERS.txt", tempLine);
     }
 
     public static void newTeacherAcc(String tid, String fdigit){
@@ -265,6 +275,10 @@ public class Book{
 	    subject = (s.nextLine());
 	}   		   
 	FileMaker.newTeacher(fname, lname, tid, fdigit, subject);
+	List<String> tempLine = new ArrayList<String>();
+	tempLine.add(lname + fname);
+	tempLine.add(tid);
+	FileMaker.appendLine("TEACHERUSERS.txt", tempLine);
     }
 
     public static void newAPAcc(String apid, String fdigit){
@@ -285,6 +299,10 @@ public class Book{
 	    subject = (s.nextLine());
 	}   		   
 	FileMaker.newTeacher(fname, lname, apid, fdigit, subject);
+	List<String> tempLine = new ArrayList<String>();
+	tempLine.add(lname + fname);
+	tempLine.add(apid);
+	FileMaker.appendLine("APUSERS.txt", tempLine);
     }
 
     public static void verify(){
@@ -323,9 +341,7 @@ public class Book{
 	Scanner s = new Scanner(System.in);
 	String temp = "";
 	System.out.println("What would you like to do?");
-	System.out.println("Options: quit/logout/change pass/myInfo/check grades/check class grade");
-	System.out.println("course breakdown");
-
+	System.out.println("Options: quit/logout/change pass/myInfo/check grades/check class grade/course breakdown");
 	if(s.hasNext()){
 	    temp = (s.nextLine());
 	}
@@ -346,7 +362,19 @@ public class Book{
 	    stall();
 	}
 	if(temp.equals("course breakdown")){
-	    //
+	    String course = "";
+	    String section = "";
+	    System.out.println("Course?");
+	    if(s.hasNext()){
+		course = (s.nextLine());
+	    }	    
+	    System.out.println("Section Number?");
+	    if(s.hasNext()){
+		section = (s.nextLine());
+	    }
+	    course.toLowerCase();
+	    section.toLowerCase();
+	    ((Student)u).checkBreakDown(course, section);
 	}
 
     }
@@ -356,12 +384,77 @@ public class Book{
 	String temp = "";
 	System.out.println("What would you like to do?");
 	System.out.println("Options: quit/logout/change pass");
-	System.out.println("check student transcript/check student class grade/student info/check gradebook/brokendown gradebook/class stats/newAssignment/change score");
+	System.out.println("check student transcript/check student class grade/student info/check gradebook/brokendown gradebook/class stats/new assignment/change score");
 
 	if(s.hasNext()){
 	    temp = (s.nextLine());
 	}
 	commonMenu(temp);
+	adminMenu(temp);
+	
+    }
+
+    public static void apMenu(){
+	Scanner s = new Scanner(System.in);
+	String temp = "";
+
+	System.out.println("What would you like to do?");
+	System.out.println("Options: quit/logout/change pass/addosisfdigit/addtid");
+	System.out.println("check student transcript/check student class grade/student info/check gradebook/brokendown gradebook/class stats/new assignment/change score");
+	
+	if(s.hasNext()){
+	    temp = (s.nextLine());
+	}
+	commonMenu(temp);
+	adminMenu(temp);
+	if(temp.equals("addosisfdigit")){
+	    AP.addOFD();
+	}
+	if(temp.equals("addtid")){
+	    AP.addTID();
+	}
+	
+    }
+
+    public static void overlordMenu(){
+	Scanner s = new Scanner(System.in);
+	String temp = "";
+
+	System.out.println("What would you like to do?");
+	System.out.println("Options: quit/logout/change pass/addosisfdigit/addtid/addapid");
+	System.out.println("check student transcript/check student class grade/student info/check gradebook/brokendown gradebook/class stats/new assignment/change score");
+	
+	if(s.hasNext()){
+	    temp = (s.nextLine());
+	}
+	commonMenu(temp);
+	adminMenu(temp);
+	if(temp.equals("addosisfdigit")){
+	    Overlord.addOFD();
+	}
+	if(temp.equals("addtid")){
+	    Overlord.addTID();
+	}
+	if(temp.equals("addapid")){
+	    Overlord.addAPID();
+	}
+	
+    }
+
+    public static void commonMenu(String temp){
+	if(temp.equals("change pass")){
+	    changePass();
+	}
+	if(temp.equals("quit")){
+	    quit();
+	}
+	if(temp.equals("logout")){
+	    setLoggedIn(false);
+	}
+    }
+
+    public static void adminMenu(String temp){
+	Scanner s = new Scanner(System.in);
 	if(temp.equals("check student transcript")){
 	    String fname = "";
 	    String lname = "";
@@ -417,63 +510,131 @@ public class Book{
 	    ((Teacher)u).studentInfo(lname + fname);
 	    stall();
 	}
-    }
+	if(temp.equals("check gradebook")){
+	    String course = "";
+	    String section = "";
 
-    public static void apMenu(){
-	Scanner s = new Scanner(System.in);
-	String temp = "";
+	    System.out.println("Course?");
+	    if(s.hasNext()){
+		course = (s.nextLine());
+	    }	    
+	    System.out.println("Section?");
+	    if(s.hasNext()){
+		section = (s.nextLine());
+	    }
+	    course.toLowerCase();
+	    section.toLowerCase();
+	    ((Teacher)u).classBook(course, section);
+	    stall();
+	}
+	if(temp.equals("brokendown gradebook")){
+	    String course = "";
+	    String section = "";
+	    String which = "";
 
-	System.out.println("What would you like to do?");
-	System.out.println("Options: quit/logout/change pass/addtid");
-	System.out.println("mkcoursereq/chkcoursereq/chkgradebook/addosisfdigit");
-	
-	if(s.hasNext()){
-	    temp = (s.nextLine());
+	    System.out.println("Course?");
+	    if(s.hasNext()){
+		course = (s.nextLine());
+	    }	    
+	    System.out.println("Section?");
+	    if(s.hasNext()){
+		section = (s.nextLine());
+	    }
+	    System.out.println("Test/Participation/Homework/Project?");
+	    if(s.hasNext()){
+		which = (s.nextLine());
+	    }
+	    course.toLowerCase();
+	    section.toLowerCase();
+	    which.toLowerCase();
+	    ((Teacher)u).breakDown(course, section, which);
+	    stall();
 	}
-	commonMenu(temp);
-	if(temp.equals("addosisfdigit")){
-	    AP.addOFD();
-	}
-	if(temp.equals("addtid")){
-	    AP.addTID();
-	}
-	
-    }
+	if(temp.equals("class stats")){
+	    String course = "";
+	    String section = "";
+	    String which = "";
 
-    public static void overlordMenu(){
-	Scanner s = new Scanner(System.in);
-	String temp = "";
+	    System.out.println("Course?");
+	    if(s.hasNext()){
+		course = (s.nextLine());
+	    }	    
+	    System.out.println("Section?");
+	    if(s.hasNext()){
+		section = (s.nextLine());
+	    }
+	    System.out.println("Please give a specific assignment/grade");
+	    System.out.println("Test/Participation/Project/Homework");
+	    System.out.println("and attach one of these to the end av/1/2/3");
+	    if(s.hasNext()){
+		which = (s.nextLine());
+	    }
+	    course.toLowerCase();
+	    section.toLowerCase();
+	    which.toLowerCase();
+	    ((Teacher)u).classStats(course, section, which);
+	    stall();
+	}
+	if(temp.equals("new assignment")){
+	    String course = "";
+	    String section = "";
+	    String type = "";
+	    String name = "";
 
-	System.out.println("What would you like to do?");
-	System.out.println("Options: quit/logout/change pass/addtid");
-	System.out.println("mkcoursereq/chkcoursereq/chkgradebook/addosisfdigit");
-	
-	if(s.hasNext()){
-	    temp = (s.nextLine());
+	    System.out.println("Course?");
+	    if(s.hasNext()){
+		course = (s.nextLine());
+	    }	    
+	    System.out.println("Section?");
+	    if(s.hasNext()){
+		section = (s.nextLine());
+	    }
+	    System.out.println("Assignment Type?");
+	    System.out.println("Test/Participation/Project/Homework");
+	    if(s.hasNext()){
+		type = (s.nextLine());
+	    }
+	    System.out.println("Assignment Name?");
+	    if(s.hasNext()){
+		name = (s.nextLine());
+	    }
+	    course.toLowerCase();
+	    section.toLowerCase();
+	    type.toLowerCase();
+	    name.toLowerCase();
+	    ((Teacher)u).newAssignment(course, section, type, name);
+	    stall();
 	}
-	commonMenu(temp);
-	if(temp.equals("addosisfdigit")){
-	    Overlord.addOFD();
-	}
-	if(temp.equals("addtid")){
-	    Overlord.addTID();
-	}
-	if(temp.equals("addapid")){
-	    Overlord.addAPID();
-	}
-	
-    }
+	if(temp.equals("change score")){
+	    String course = "";
+	    String lfname = "";
+	    String assignment = "";
+	    String score = "";
 
-    public static void commonMenu(String temp){
-	if(temp.equals("change pass")){
-	    changePass();
+	    System.out.println("Course?");
+	    if(s.hasNext()){
+		course = (s.nextLine());
+	    }	    
+	    System.out.println("Student Username?");
+	    if(s.hasNext()){
+		lfname = (s.nextLine());
+	    }
+	    System.out.println("Assignment?");
+	    if(s.hasNext()){
+		assignment = (s.nextLine());
+	    }
+	    System.out.println("Assignment Name?");
+	    if(s.hasNext()){
+		score = (s.nextLine());
+	    }
+	    course.toLowerCase();
+	    lfname.toLowerCase();
+	    assignment.toLowerCase();
+	    score.toLowerCase();
+	    ((Teacher)u).changeScore(course, lfname, assignment, score);
+	    stall();
 	}
-	if(temp.equals("quit")){
-	    quit();
-	}
-	if(temp.equals("logout")){
-	    setLoggedIn(false);
-	}
+
     }
     
     public static void menu(){
@@ -540,7 +701,16 @@ public class Book{
 	while(true){
 	    if(s.hasNext()){
 		String x = s.nextLine();
-		if(u.newPass(x)){
+		if(_usertype.equals("student") && ((Student)u).newPass(x)){
+		    break;
+		}
+		else if(_usertype.equals("teacher") && ((Teacher)u).newPass(x)){
+		    break;
+		}
+		else if(_usertype.equals("ap") && ((AP)u).newPass(x)){
+		    break;
+		}
+		else if(_usertype.equals("overlord") && ((Overlord)u).newPass(x)){
 		    break;
 		}
 		else if(x.equals("quit")){

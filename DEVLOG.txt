@@ -142,3 +142,14 @@ Chris:
 
 atsomepoint
 -made bubbleSort compatible with <Integer>
+9:50-10:28 corrected student, teacher, ap and overlord constructor issue.
+10:39-10:49 added ap verification
+10:49-11:10 students can check their info //Student.java, Book.java, sherlingchristopherinfo.txt
+11:10-11:20 students can check their grades //Student.java, Book.java
+11:38-12:20 worked on teacher menu
+12:20-12:26 wrote filewriting method //FileMaker.java
+12:30-12:43 made fexist unneccesary //Admin.java, Book.java
+12:44-1:00 worked on teacher menu more //Book.java
+1:00-1:20 worked on correct logins //student, teacher, ap, overlord, Book
+1:20-1:33 default new account's password to osis/tid/apid for student/teacher/ap respectively
+2:00-3:25 worked on the menus to finalize.

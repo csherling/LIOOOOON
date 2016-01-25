@@ -21,7 +21,7 @@ public class Student extends User{
     public int getOSIS(){
 	if (!super.fexist())
 	    return 0;
-	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "Info.txt");
 	return Integer.parseInt( temp.get(1)[2]);
 
     }
@@ -29,7 +29,7 @@ public class Student extends User{
     public int getfourDigit(){
 	if (!super.fexist())
 	    return 0;
-	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "Info.txt");
 	return Integer.parseInt( temp.get(1)[3]);
     }
 
@@ -37,7 +37,7 @@ public class Student extends User{
     public int getGrad(){
 	if (!super.fexist())
 	    return 0;
-	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "Info.txt");
 	return Integer.parseInt( temp.get(1)[4]);
     }
 
@@ -47,7 +47,7 @@ public class Student extends User{
 	if (!fexist())
 	    return null;
 	
-	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "Info.txt");
 	String[] retArr = {temp.get(1)[0], temp.get(1)[1]};
 	return retArr;
     }
@@ -64,6 +64,22 @@ public class Student extends User{
 	return false;
     }
 
+    protected boolean newPass(String newPass){
+    	List<String[]> temp = ReadCSV.read("STUDENTUSERS.txt");
+	for(int i = 0; i < temp.size(); i++){
+	    if (temp.get(i)[0].equals(_lfname)){
+		ArrayList<String> quack = new ArrayList<String>();
+		quack.add(temp.get(i)[0]);
+		quack.add(newPass);
+		FileMaker.changeLine("STUDENTUSERS.txt", i, quack);
+		System.out.println("Password Successfully Changed");
+		return true;
+	    }
+	}
+	return false;
+    	
+    }
+
     //Check Grades section//
 
     //Checks grades w/ no input-
@@ -72,7 +88,7 @@ public class Student extends User{
     public String checkGrades(){
 	if (!super.fexist())
 	    return "Student name invalid. Log out and try again."; 
-	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "Info.txt");
 	String[] grades = temp.get(3);
 	String retStr = "Transcript Average: \n";
 	retStr += grades[0] + "\n";
@@ -85,7 +101,7 @@ public class Student extends User{
     //Takes a class' name as an input, returns average for that class and grade breakdowns
     public String checkGrades(String className){
 	//This is to check if the String is actually a department, in which case the student's average for that department will be returned.
-	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "Info.txt");
 	String[] grades = temp.get(3);
 	for (int i = 0; i<9; i++)
 	    if (className.toLowerCase().equals(super.DEPARTMENTS[i])){
@@ -117,7 +133,7 @@ public class Student extends User{
 	//This part isolates the line in the course file that has that student's grade breakdown
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
-	for (int i = 2; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
+	for (int i = 1; i < temp.size(); i += Integer.parseInt(temp.get(i)[2])+1){	    
 	    if (temp.get(i)[1].equals(sectionNum)){
 		lineNum = i+1;
 		for (int stud = lineNum; stud< (lineNum + Integer.parseInt( temp.get(lineNum)[2])+1); stud++){
@@ -142,7 +158,7 @@ public class Student extends User{
 	String retStr = "\n|"+ courseName+"|";
 
 	//This section is to get average for that class
-	List<String[]> temp1 = ReadCSV.read(_lfname + "info.txt");
+	List<String[]> temp1 = ReadCSV.read(_lfname + "Info.txt");
 	String[] grades = temp1.get(3);
 	String[] classes = temp1.get(2);
 	for(int i = 1; i < classes.length;i++)
@@ -191,7 +207,7 @@ public class Student extends User{
     public String toString(){
 	if (!fexist())
 	    return "No Student Information Availible";
-	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
+	List<String[]> temp = ReadCSV.read(_lfname + "Info.txt");
 	
 	String retStr = ("First Name: " + getflname()[0] + "\nLast Name: " + getflname()[1]+ "\n");
 	retStr += "OSIS: " + getOSIS() + "\nFour Digit: " + getfourDigit()+ "\nGraduation Year: " + getGrad() + "\n";

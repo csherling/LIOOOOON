@@ -1,0 +1,10 @@
+math,math
+math,1,30
+studentname,testav,test1,test2,participation,projectav,project 1,project 2,homeworkav,homework1,homework2
+sherchris, 95, 100, 90, 90, 95, 100, 90, 95, 100, 90
+
+check gradebook
+brokendown gradebook
+class stats
+new assignment
+change score

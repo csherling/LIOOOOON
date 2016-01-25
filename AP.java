@@ -52,4 +52,20 @@ public class AP extends Teacher{
 	return false;
     }
 
+    protected boolean newPass(String newPass){
+    	List<String[]> temp = ReadCSV.read("APUSERS.txt");
+	for(int i = 0; i < temp.size(); i++){
+	    if (temp.get(i)[0].equals(_lfname)){
+		ArrayList<String> quack = new ArrayList<String>();
+		quack.add(temp.get(i)[0]);
+		quack.add(newPass);
+		FileMaker.changeLine("APUSERS.txt", i, quack);
+		System.out.println("Password Successfully Changed");
+		return true;
+	    }
+	}
+	return false;
+    	
+    }
+
 }

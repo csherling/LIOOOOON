@@ -34,4 +34,20 @@ public class Overlord extends AP{
 	return false;
     }
 
+    protected boolean newPass(String newPass){
+    	List<String[]> temp = ReadCSV.read("OVUSERS.txt");
+	for(int i = 0; i < temp.size(); i++){
+	    if (temp.get(i)[0].equals(_lfname)){
+		ArrayList<String> quack = new ArrayList<String>();
+		quack.add(temp.get(i)[0]);
+		quack.add(newPass);
+		FileMaker.changeLine("OVUSERS.txt", i, quack);
+		System.out.println("Password Successfully Changed");
+		return true;
+	    }
+	}
+	return false;
+    	
+    }
+
 }
