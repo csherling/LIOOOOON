@@ -18,7 +18,7 @@ public class Student extends User{
     
     // OSIS & 4digit & grad year are inhereted from User -- This overwrites them to call using lfname instead of taking an input, since students can only check their own osis
     //Returns 0 if student info file doesn't exist
-    protected int getOSIS(){
+    public int getOSIS(){
 	if (!super.fexist())
 	    return 0;
 	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
@@ -26,7 +26,7 @@ public class Student extends User{
 
     }
     
-    protected int getfourDigit(){
+    public int getfourDigit(){
 	if (!super.fexist())
 	    return 0;
 	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
@@ -34,7 +34,7 @@ public class Student extends User{
     }
 
     
-    protected int getGrad(){
+    public int getGrad(){
 	if (!super.fexist())
 	    return 0;
 	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
@@ -43,7 +43,7 @@ public class Student extends User{
 
     //Gets First and Last names respectively
     
-    protected String[] getflname(){
+    public String[] getflname(){
 	if (!fexist())
 	    return null;
 	
@@ -58,21 +58,21 @@ public class Student extends User{
     //Checks grades w/ no input-
     //returns average in normal and gpa form
 
-    private String checkGrades(){
+    public String checkGrades(){
 	if (!super.fexist())
 	    return "Student name invalid. Log out and try again."; 
 	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	String[] grades = temp.get(3);
 	String retStr = "Transcript Average: \n";
-	retStr += grades[0];
+	retStr += grades[0] + "\n";
 	double GPA =Double.parseDouble( grades[0]);
-	retStr += " and your GPA is:\n" + GPA/20.0 +1.0;
+	retStr += "and your GPA is:\n" + (GPA/20.0 +1.0);
 	return retStr;
     }
 
 
     //Takes a class' name as an input, returns average for that class and grade breakdowns
-    private String checkGrades(String className){
+    public String checkGrades(String className){
 	//This is to check if the String is actually a department, in which case the student's average for that department will be returned.
 	List<String[]> temp = ReadCSV.read(_lfname + "info.txt");
 	String[] grades = temp.get(3);
@@ -102,7 +102,7 @@ public class Student extends User{
       2:Teacher, Section, # of students
       3: Studentname, TestAv, Test1,Test2, etc.., Participation, Project, Project 1, project 2 etc
     */
-    private void checkBreakDown(String courseName, String sectionNum){
+    public void checkBreakDown(String courseName, String sectionNum){
 	//This part isolates the line in the course file that has that student's grade breakdown
 	List<String[]> temp = ReadCSV.read(courseName + ".txt");
 	int lineNum = 2;
@@ -173,15 +173,7 @@ public class Student extends User{
 
 	System.out.println( retStr);
 	
-	
-		
-
-
     }
-
-
-
-    
 
     //Overwritten TOSTRING
 
@@ -195,8 +187,8 @@ public class Student extends User{
 	String[] grades = temp.get(3);
 	retStr += "Average: " + grades[0]+ "\n";
 	String[] classes = temp.get(2);
-	for (int i = 1; i< 9; i++)
-	    retStr += super.DEPARTMENTS[i-1] + " average: " + grades[i+1];
+	for (int i = 1; i< 8; i++)
+	    retStr += super.DEPARTMENTS[i-1] + " average: " + grades[i+1] + "\n";
 	return retStr;
 
 

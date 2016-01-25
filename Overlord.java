@@ -2,6 +2,10 @@ import java.util.*;//List, ArrayList, Scanner
 
 public class Overlord extends AP{
 
+    public Overlord(String name){
+	super(name);
+    }
+
     public static void addAPID(){
 	String apid = "";
 	String fdigit = "";

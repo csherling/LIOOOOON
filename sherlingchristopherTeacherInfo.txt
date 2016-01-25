@@ -1,0 +1,2 @@
+Teacher fname,Student lname,teacher ID,teacher four digit,numberOfCourses,course1
+sherling,christopher,999999,9999,1,apcs

@@ -68,6 +68,26 @@ public class FileMaker {
         }
     }
 
+    public static void newAP(String fname, String lname, String APID, String fdigit, String subject){
+
+	String lowf = fname.toLowerCase();
+	String lowl = lname.toLowerCase();
+        try{
+            File file = new File(lowl + lowf + "TeacherInfo.txt");
+            file.createNewFile();
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("Teacher fname, Student lname, AP ID, teacher four digit, subject\n");
+            bw.write(fname + "," + lname + "," + APID + "," + fdigit + "," + subject);
+            bw.write("\n");
+            bw.flush();
+            bw.close();
+
+        }catch(IOException e){
+        e.printStackTrace();
+        }
+    }
+
 
     //preconds, filename is full, including .txt.
     //postconds, file line changed

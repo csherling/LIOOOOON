@@ -3,8 +3,10 @@ import java.util.*; //imports List/ArrayList/Scanner
 public class Book{
 
     private static User u;
+    private static String _usertype;
     private static boolean _Using = true;
     private static boolean _loggedIn = false;
+
 
     //returns the logged in state
     public static boolean getLoggedIn(){
@@ -38,19 +40,19 @@ public class Book{
 		x = (s.nextLine());
 	    }   
 	    if(x.equals("student")){
-		u = new Student();
+		_usertype = x;
 		break;
 	    }
 	    else if(x.equals("teacher")){
-		u = new Teacher();
+		_usertype = x;
 		break;
 	    }
 	    else if(x.equals("ap")){
-		u = new AP();
+		_usertype = x;
 		break;
 	    }
 	    else if(x.equals("overlord")){
-		u = new Overlord();
+		_usertype = x;
 		break;
 	    }
 	    else{
@@ -58,6 +60,22 @@ public class Book{
 	    }
 	}
     }
+
+    public static void instantiate(String lfname){
+	if(_usertype.equals("student")){
+	    u = new Student(lfname);
+	}
+	if(_usertype.equals("teacher")){
+	    u = new Teacher(lfname);
+	}
+	if(_usertype.equals("ap")){
+	    u = new AP(lfname);
+	}
+	if(_usertype.equals("overlord")){
+	    u = new Overlord(lfname);
+	}	
+    }
+
     public static void doLogin(){
 	Scanner s = new Scanner(System.in);
 	String username = "";
@@ -70,6 +88,8 @@ public class Book{
 	if(s.hasNext()){
 	    password = s.nextLine();
 	}
+	instantiate(username);
+
 	if(u.login(username, password)){
 	    u.setName(username);
 	    clear();
@@ -140,6 +160,35 @@ public class Book{
 	}
     }
 
+    public static boolean verifyAP(){
+	List<String[]> temp = ReadCSV.read("APID.txt");
+	Scanner s = new Scanner(System.in);
+	String apid = "";
+	String fdigit = "";
+	while(true){
+	    System.out.println("What is your APID?");
+	    if(s.hasNext()){
+		apid = (s.nextLine());
+	    }   
+	    System.out.println("What is your four digit ID?");
+	    if(s.hasNext()){
+		fdigit = (s.nextLine());
+	    }   
+	    for(int i = 0; i < temp.size(); i++){
+		if(temp.get(i)[0].equals(apid)){
+		    if(temp.get(i)[1].equals(fdigit)){
+			clear();
+			System.out.println("Verification Success!\n");
+			newTeacherAcc(apid, fdigit);
+			return true;
+		    }
+		}
+	    }
+	    clear();
+	    System.out.println("verification unsuccesful. Retry");
+	}
+    }
+
     public static void newStudentAcc(String osis, String fdigit){
 	Scanner s = new Scanner(System.in);
 	String fname = "";
@@ -180,6 +229,26 @@ public class Book{
 	FileMaker.newTeacher(fname, lname, tid, fdigit, subject);
     }
 
+    public static void newAPAcc(String apid, String fdigit){
+	Scanner s = new Scanner(System.in);
+	String fname = "";
+	String lname = "";
+	String subject = "";
+	System.out.println("What is your first Name?");
+	if(s.hasNext()){
+	    fname = (s.nextLine());
+	}   		   
+	System.out.println("What is your last Name?");
+	if(s.hasNext()){
+	    lname = (s.nextLine());
+	}   		   
+	System.out.println("What is your Subject?");
+	if(s.hasNext()){
+	    subject = (s.nextLine());
+	}   		   
+	FileMaker.newTeacher(fname, lname, apid, fdigit, subject);
+    }
+
     public static void verify(){
 	Scanner s = new Scanner(System.in);
 	String type  = "";
@@ -201,6 +270,11 @@ public class Book{
 		    break;
 		}
 	    }
+	    else if(type.equals("ap")){
+		if(verifyAP()){
+		    break;
+		}
+	    }
 	    else{
 		System.out.println("Please respecify!");
 	    }
@@ -211,22 +285,39 @@ public class Book{
 	Scanner s = new Scanner(System.in);
 	String temp = "";
 	System.out.println("What would you like to do?");
-	System.out.println("Options: quit/logout/change pass");
-	System.out.println("mkcoursereq/chkcoursereq/chkgrade");
+	System.out.println("Options: quit/logout/change pass/myInfo/check grades/check class grade");
+	System.out.println("course breakdown");
 
 	if(s.hasNext()){
 	    temp = (s.nextLine());
 	}
 	commonMenu(temp);
-	if(temp.equals("mkcoursereq")){
-	    //	    
+	if(temp.equals("myInfo")){
+	    System.out.println((Student)u);
+	    System.out.println("Type anything and press enter to continue");
+	    if(s.hasNext()){
+	    }
 	}
-	if(temp.equals("chkcoursereq")){
-	    //	    
+	if(temp.equals("check grades")){
+	    System.out.println(((Student)u).checkGrades());
+	    System.out.println("Type anything and press enter to continue");
+	    if(s.hasNext()){
+	    }
 	}
-	if(temp.equals("chkgrade")){
-	    //	    
+	if(temp.equals("check class grade")){
+	    clear();
+	    System.out.println("Which class?");
+	    if(s.hasNext()){
+		System.out.println(((Student)u).checkGrades(s.nextLine()));
+	    }
+	    System.out.println("Type anything and press enter to continue");
+	    if(s.hasNext()){
+	    }
 	}
+	if(temp.equals("course breakdown")){
+	    //
+	}
+
     }
 
     public static void teacherMenu(){
