@@ -42,4 +42,14 @@ public class AP extends Teacher{
 	FileMaker.appendLine("TID.txt", line);
     }
 
+    public boolean login(String name, String password){
+	List<String[]> temp = ReadCSV.read("APUSERS.txt");
+	for(int i = 0; i < temp.size(); i++){
+	    if(temp.get(i)[0].equals(name))
+		if(temp.get(i)[1].equals(password))
+		    return true;
+	}
+	return false;
+    }
+
 }

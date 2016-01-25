@@ -53,6 +53,17 @@ public class Student extends User{
     }
     //============ End GET SET ==================//
 
+    //login
+    public boolean login(String name, String password){
+	List<String[]> temp = ReadCSV.read("STUDENTUSERS.txt");
+	for(int i = 0; i < temp.size(); i++){
+	    if(temp.get(i)[0].equals(name))
+		if(temp.get(i)[1].equals(password))
+		    return true;
+	}
+	return false;
+    }
+
     //Check Grades section//
 
     //Checks grades w/ no input-
@@ -187,8 +198,8 @@ public class Student extends User{
 	String[] grades = temp.get(3);
 	retStr += "Average: " + grades[0]+ "\n";
 	String[] classes = temp.get(2);
-	for (int i = 1; i< 8; i++)
-	    retStr += super.DEPARTMENTS[i-1] + " average: " + grades[i+1] + "\n";
+	for (int i = 0; i< 8; i++)
+	    retStr += super.DEPARTMENTS[i] + " average: " + grades[i+1] + "\n";
 	return retStr;
 
 

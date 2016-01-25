@@ -90,15 +90,53 @@ public class Book{
 	}
 	instantiate(username);
 
-	if(u.login(username, password)){
-	    u.setName(username);
-	    clear();
-	    System.out.println("Login Successful!" + "\n");
-	    setLoggedIn(true);
+	if(_usertype.equals("student")){
+	    if(((Student)u).login(username, password)){
+		u.setName(username);
+		clear();
+		System.out.println("Login Successful!" + "\n");
+		setLoggedIn(true);
+	    }
+	    else{
+		clear();
+		System.out.println("Login failed. Retry." + "\n");
+	    }
 	}
-	else{
-	    clear();
-	    System.out.println("Login failed. Retry." + "\n");
+	if(_usertype.equals("teacher")){
+	    if(((Teacher)u).login(username, password)){
+		u.setName(username);
+		clear();
+		System.out.println("Login Successful!" + "\n");
+		setLoggedIn(true);
+	    }
+	    else{
+		clear();
+		System.out.println("Login failed. Retry." + "\n");
+	    }
+	}
+	if(_usertype.equals("ap")){
+	    if(((AP)u).login(username, password)){
+		u.setName(username);
+		clear();
+		System.out.println("Login Successful!" + "\n");
+		setLoggedIn(true);
+	    }
+	    else{
+		clear();
+		System.out.println("Login failed. Retry." + "\n");
+	    }
+	}
+	if(_usertype.equals("overlord")){
+	    if(((Overlord)u).login(username, password)){
+		u.setName(username);
+		clear();
+		System.out.println("Login Successful!" + "\n");
+		setLoggedIn(true);
+	    }
+	    else{
+		clear();
+		System.out.println("Login failed. Retry." + "\n");
+	    }
 	}
     }
 
@@ -318,7 +356,7 @@ public class Book{
 	String temp = "";
 	System.out.println("What would you like to do?");
 	System.out.println("Options: quit/logout/change pass");
-	System.out.println("check student transcript/check student class grade/student info");
+	System.out.println("check student transcript/check student class grade/student info/check gradebook/brokendown gradebook/class stats/newAssignment/change score");
 
 	if(s.hasNext()){
 	    temp = (s.nextLine());
@@ -341,10 +379,43 @@ public class Book{
 	    stall();
 	}
 	if(temp.equals("check student class grade")){
-	    //	    
+	    String fname = "";
+	    String lname = "";
+	    String course = "";
+	    System.out.println("Student's First name?");
+	    if(s.hasNext()){
+		fname = (s.nextLine());
+	    }	    
+	    System.out.println("Student's Last name?");
+	    if(s.hasNext()){
+		lname = (s.nextLine());
+	    }
+	    System.out.println("Course name?");
+	    if(s.hasNext()){
+		course = (s.nextLine());
+	    }
+
+	    fname.toLowerCase();
+	    lname.toLowerCase();
+	    System.out.println(((Teacher)u).checkGrades(lname + fname, course));
+	    stall();
 	}
 	if(temp.equals("student info")){
-	    //	    
+	    String fname = "";
+	    String lname = "";
+
+	    System.out.println("Student's First name?");
+	    if(s.hasNext()){
+		fname = (s.nextLine());
+	    }	    
+	    System.out.println("Student's Last name?");
+	    if(s.hasNext()){
+		lname = (s.nextLine());
+	    }
+	    fname.toLowerCase();
+	    lname.toLowerCase();
+	    ((Teacher)u).studentInfo(lname + fname);
+	    stall();
 	}
     }
 

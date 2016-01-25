@@ -22,7 +22,7 @@ public class User{
 	return (use.exists());
     }
     
-    public boolean fexist(String fileName){
+    public static boolean fexist(String fileName){
 	File use = new File(fileName+".txt");
 	return (use.exists());
     }
@@ -116,7 +116,7 @@ public class User{
  
     
     public static void main(String[] args){
-    
+	System.out.println(fexist("sherlingchristopher"));
     
     }
     /*
