@@ -294,15 +294,10 @@ public class Book{
 	commonMenu(temp);
 	if(temp.equals("myInfo")){
 	    System.out.println((Student)u);
-	    System.out.println("Type anything and press enter to continue");
-	    if(s.hasNext()){
-	    }
-	}
+	}    
 	if(temp.equals("check grades")){
 	    System.out.println(((Student)u).checkGrades());
-	    System.out.println("Type anything and press enter to continue");
-	    if(s.hasNext()){
-	    }
+	    stall();
 	}
 	if(temp.equals("check class grade")){
 	    clear();
@@ -310,9 +305,7 @@ public class Book{
 	    if(s.hasNext()){
 		System.out.println(((Student)u).checkGrades(s.nextLine()));
 	    }
-	    System.out.println("Type anything and press enter to continue");
-	    if(s.hasNext()){
-	    }
+	    stall();
 	}
 	if(temp.equals("course breakdown")){
 	    //
@@ -325,13 +318,32 @@ public class Book{
 	String temp = "";
 	System.out.println("What would you like to do?");
 	System.out.println("Options: quit/logout/change pass");
-	System.out.println("mkcoursereq/chkcoursereq/chkgradebook");
+	System.out.println("check student transcript/check student class grade/student info");
 
 	if(s.hasNext()){
 	    temp = (s.nextLine());
 	}
 	commonMenu(temp);
-	if(temp.equals("chkgradebook")){
+	if(temp.equals("check student transcript")){
+	    String fname = "";
+	    String lname = "";
+	    System.out.println("Student's First name?");
+	    if(s.hasNext()){
+		fname = (s.nextLine());
+	    }	    
+	    System.out.println("Student's Last name?");
+	    if(s.hasNext()){
+		lname = (s.nextLine());
+	    }
+	    fname.toLowerCase();
+	    lname.toLowerCase();
+	    System.out.println(((Teacher)u).checkGrades(lname + fname));
+	    stall();
+	}
+	if(temp.equals("check student class grade")){
+	    //	    
+	}
+	if(temp.equals("student info")){
 	    //	    
 	}
     }
@@ -412,6 +424,13 @@ public class Book{
 	}
     }
 
+    public static void stall(){
+	Scanner s = new Scanner(System.in);
+	System.out.println("Type anything and press enter to continue");
+	if(s.hasNext()){
+   
+	}
+    }
     public static void quit(){
 	clear();
 	System.exit(1);
@@ -473,7 +492,7 @@ public class Book{
 	    startLogIn();
 
 	    while(getLoggedIn() == false){
-	    doLogin();
+		doLogin();
 	    }
 
 	    while(getLoggedIn()){

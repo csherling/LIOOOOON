@@ -1,3 +1,4 @@
+import java.io.*; //FileNotFoundException (Exception)
 import java.util.*; //imports Listt/ArrayList/Scanner
 
 
@@ -23,13 +24,16 @@ public class Admin extends User{
 
     //Check Transcript average of any student
     public String checkGrades(String name){
-	if (!super.fexist(name))
-	    return "Student name invalid. Log out and try again."; 
+	try{
 	List<String[]> temp = ReadCSV.read(name + "info.txt");
 	String[] grades = temp.get(3);
 	String retStr = "Transcript Average: \n";
 	retStr += grades[0];
 	return retStr;
+	}
+	catch(Exception e){
+	   	    return "Student name invalid. Log out and try again.";
+	}
     }
 
 
